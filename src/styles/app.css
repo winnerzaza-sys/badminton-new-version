@@ -178,13 +178,13 @@ p {
 }
 small {
   display: block;
-  font-size: 12px;
+  font-size: 16px;
   color: var(--muted);
   line-height: 1.6;
 }
 label {
   min-width: 0;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   display: grid;
   gap: 7px;
@@ -232,7 +232,7 @@ hr {
   color: #406293;
   padding: 6px 10px;
   border-radius: 7px;
-  font-size: 11px;
+  font-size: 16px;
 }
 .app-shell {
   min-height: 100vh;
@@ -258,7 +258,7 @@ hr {
   font-size: 20px;
 }
 .brand small {
-  font-size: 10px;
+  font-size: 16px;
 }
 .shuttle {
   font-size: 33px;
@@ -275,7 +275,7 @@ hr {
   background: transparent;
   color: #4a6285;
   text-align: left;
-  font-size: 13px;
+  font-size: 16px;
 }
 .nav-item span {
   font-size: 22px;
@@ -289,10 +289,10 @@ hr {
   border-radius: 12px;
   background: #fff;
   padding: 14px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .sidebar-context p {
-  font-size: 11px;
+  font-size: 16px;
   color: var(--muted);
   margin-top: 10px;
 }
@@ -309,7 +309,7 @@ hr {
 }
 .phase-note {
   margin-top: 14px;
-  font-size: 10px;
+  font-size: 16px;
 }
 .workspace {
   min-width: 0;
@@ -325,10 +325,10 @@ hr {
   margin-bottom: 25px;
 }
 .header-context strong {
-  font-size: 15px;
+  font-size: 16px;
 }
 .connection {
-  font-size: 11px;
+  font-size: 16px;
   color: #4d6785;
   background: #fff;
   border-radius: 20px;
@@ -354,7 +354,7 @@ hr {
   margin-bottom: 23px;
 }
 .page-title p {
-  font-size: 13px;
+  font-size: 16px;
   color: var(--muted);
   margin-top: 6px;
 }
@@ -376,7 +376,7 @@ hr {
   padding: 30px;
 }
 .setup-help p {
-  font-size: 13px;
+  font-size: 16px;
   color: #56708e;
   margin-top: 16px;
 }
@@ -393,7 +393,7 @@ hr {
   border-radius: 10px;
   background: #fff;
   padding: 14px;
-  font-size: 12px;
+  font-size: 16px;
   color: #4270a5;
 }
 .panel-title {
@@ -460,7 +460,7 @@ hr {
   .config-grid input:not([class*="ant-"]):not(.ant-picker input),
   .config-grid select {
     padding: 9px 6px;
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 .count {
@@ -468,7 +468,7 @@ hr {
   background: #e8f1ff;
   color: #1467db;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 16px;
   padding: 3px 8px;
   margin-left: 5px;
 }
@@ -479,12 +479,12 @@ hr {
   margin: -9px 0 10px;
 }
 .selection-actions button {
-  font-size: 12px;
+  font-size: 16px;
   padding: 8px;
 }
 .selection-actions small {
   margin-left: auto;
-  font-size: 10px;
+  font-size: 16px;
 }
 .player-selection {
   display: grid;
@@ -506,11 +506,11 @@ hr {
   border-color: #a9c6ed;
 }
 .player-option strong {
-  font-size: 13px;
+  font-size: 16px;
   overflow-wrap: anywhere;
 }
 .gender {
-  font-size: 11px;
+  font-size: 16px;
   color: #657693;
   margin-left: auto;
   white-space: nowrap;
@@ -531,7 +531,7 @@ hr {
 .avatar.small {
   height: 32px;
   width: 32px;
-  font-size: 14px;
+  font-size: 16px;
   border-width: 2px;
 }
 .generate-footer {
@@ -544,7 +544,7 @@ hr {
   border-radius: 12px;
 }
 .generate-footer strong {
-  font-size: 13px;
+  font-size: 16px;
 }
 .generate-footer small {
   margin-top: 5px;
@@ -561,10 +561,10 @@ hr {
   gap: 12px;
 }
 .resume-card strong {
-  font-size: 13px;
+  font-size: 16px;
 }
 .resume-card p {
-  font-size: 12px;
+  font-size: 16px;
   color: #5e7596;
 }
 .empty {
@@ -577,7 +577,7 @@ hr {
   margin-bottom: 15px;
 }
 .empty p {
-  font-size: 13px;
+  font-size: 16px;
   color: var(--muted);
   margin: 10px 0 20px;
 }
@@ -597,10 +597,10 @@ hr {
   overflow-wrap: anywhere;
 }
 .directory-row strong {
-  font-size: 14px;
+  font-size: 16px;
 }
 .directory-row button {
-  font-size: 12px;
+  font-size: 16px;
 }
 .schedule-layout {
   display: grid;
@@ -624,7 +624,7 @@ hr {
   min-height: 44px;
   background: #edf4ff;
   color: #4b6b9b;
-  font-size: 12px;
+  font-size: 16px;
   padding: 8px 13px;
   border-radius: 20px;
 }
@@ -693,13 +693,13 @@ hr {
   max-width: 100%;
 }
 .court-player strong {
-  font-size: 12px;
+  font-size: 16px;
   overflow-wrap: anywhere;
 }
 .versus {
   display: block;
   text-align: center;
-  font-size: 10px;
+  font-size: 16px;
   color: #466184;
   font-weight: 700;
   padding-top: 10px;
@@ -727,11 +727,11 @@ hr {
 }
 .score-ring small {
   display: inline;
-  font-size: 13px;
+  font-size: 16px;
 }
 .score-caption {
   text-align: center;
-  font-size: 11px;
+  font-size: 16px;
   color: var(--muted);
   margin-bottom: 18px;
 }
@@ -740,7 +740,7 @@ hr {
   grid-template-columns: 1fr auto;
   gap: 6px;
   margin: 12px 0;
-  font-size: 11px;
+  font-size: 16px;
 }
 .metric progress {
   grid-column: 1/-1;
@@ -753,7 +753,7 @@ hr {
   grid-template-columns: minmax(0, 1fr) 75px 15px;
   gap: 8px;
   align-items: center;
-  font-size: 11px;
+  font-size: 16px;
   margin-top: 12px;
 }
 .player-stat span {
@@ -765,7 +765,7 @@ hr {
   accent-color: #458aff;
 }
 .muted {
-  font-size: 10px;
+  font-size: 16px;
   line-height: 1.7;
   color: var(--muted);
   margin-top: 18px;
@@ -776,7 +776,7 @@ hr {
 .app-shell table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 11px;
+  font-size: 16px;
   table-layout: fixed;
 }
 .app-shell th,
@@ -808,7 +808,7 @@ hr {
 .table-vs {
   display: block;
   color: #53698a;
-  font-size: 9px;
+  font-size: 16px;
   margin: 4px;
 }
 .round-link {
@@ -818,7 +818,7 @@ hr {
   padding: 0;
   background: #e2edff;
   color: #075fde;
-  font-size: 12px;
+  font-size: 16px;
 }
 .app-shell td {
   line-height: 1.7;
@@ -830,7 +830,7 @@ hr {
   background: #f5f9ff;
 }
 .app-shell tbody th small {
-  font-size: 9px;
+  font-size: 16px;
   margin-top: 5px;
 }
 .mobile-rounds {
@@ -848,7 +848,7 @@ hr {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 16px;
 }
 .error button {
   background: transparent;
@@ -893,7 +893,7 @@ hr {
   }
   .nav-item {
     padding: 10px 8px;
-    font-size: 12px;
+    font-size: 16px;
   }
   .workspace {
     padding: 0 16px 25px;
@@ -911,10 +911,10 @@ hr {
   .avatar {
     width: 34px;
     height: 34px;
-    font-size: 15px;
+    font-size: 16px;
   }
   .court-player strong {
-    font-size: 11px;
+    font-size: 16px;
   }
   .player-stat {
     grid-template-columns: minmax(0, 1fr) 48px 13px;
@@ -927,7 +927,7 @@ hr {
     padding: 20px;
   }
   .app-shell table {
-    font-size: 10px;
+    font-size: 16px;
   }
   .app-shell thead th:first-child {
     width: 76px;
@@ -1012,7 +1012,7 @@ hr {
   .bottom-nav .nav-item {
     flex-direction: column;
     gap: 2px;
-    font-size: 11px;
+    font-size: 16px;
     min-width: 100px;
   }
   .nav-item.selected {
@@ -1046,7 +1046,7 @@ hr {
     font-size: 21px;
   }
   .connection {
-    font-size: 10px;
+    font-size: 16px;
     padding: 7px 9px;
   }
   .setup-layout {
@@ -1060,7 +1060,7 @@ hr {
     flex-wrap: wrap;
   }
   .page-title p {
-    font-size: 12px;
+    font-size: 16px;
   }
   .panel {
     padding: 16px;
@@ -1070,11 +1070,11 @@ hr {
     font-size: 16px;
   }
   .panel-title .badge {
-    font-size: 9px;
+    font-size: 16px;
   }
   .panel-title button {
     padding: 8px 11px;
-    font-size: 12px;
+    font-size: 16px;
   }
   .config-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1128,7 +1128,7 @@ hr {
     min-width: 65px;
   }
   .court-player strong {
-    font-size: 13px;
+    font-size: 16px;
   }
   .avatar {
     width: 45px;
@@ -1162,7 +1162,7 @@ hr {
     margin-bottom: 10px;
   }
   .mobile-round h3 small {
-    font-size: 11px;
+    font-size: 16px;
   }
   .mobile-match {
     display: grid;
@@ -1171,19 +1171,19 @@ hr {
     border-radius: 8px;
     padding: 11px;
     margin-top: 7px;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.8;
   }
   .mobile-match span {
     overflow-wrap: anywhere;
   }
   .mobile-match b {
-    font-size: 10px;
+    font-size: 16px;
     color: #4c6281;
   }
   .stats .player-stat {
     grid-template-columns: minmax(0, 1fr) 40% 20px;
-    font-size: 12px;
+    font-size: 16px;
   }
   .directory-row {
     flex-wrap: wrap;
@@ -1210,7 +1210,7 @@ hr {
   .bottom-nav .nav-item {
     flex-direction: column;
     gap: 0;
-    font-size: 10px;
+    font-size: 16px;
     min-width: 85px;
     padding: 5px 12px;
   }
@@ -1252,7 +1252,7 @@ hr {
   border-radius: 10px;
   padding: 12px 16px;
   margin-bottom: 20px;
-  font-size: 13px;
+  font-size: 16px;
 }
 progress {
   appearance: none;
@@ -1286,7 +1286,7 @@ progress::-moz-progress-bar {
   border-radius: 10px;
   padding: 12px 16px;
   margin-bottom: 18px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.7;
 }
 .toolbar {
@@ -1296,7 +1296,7 @@ progress::-moz-progress-bar {
   align-items: center;
 }
 .toolbar button {
-  font-size: 12px;
+  font-size: 16px;
 }
 .block-toolbar {
   display: flex;
@@ -1328,7 +1328,7 @@ progress::-moz-progress-bar {
   background: #ffffff80;
 }
 .edit-instruction {
-  font-size: 12px;
+  font-size: 16px;
   background: #edf5ff;
   padding: 12px;
   border-radius: 9px;
@@ -1353,11 +1353,11 @@ progress::-moz-progress-bar {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 16px;
   overflow-wrap: anywhere;
 }
 .roster-name small {
-  font-size: 10px;
+  font-size: 16px;
 }
 .roster-controls {
   display: grid;
@@ -1366,7 +1366,7 @@ progress::-moz-progress-bar {
   margin-top: 9px;
 }
 .roster-controls select {
-  font-size: 11px;
+  font-size: 16px;
   min-width: 0;
   padding: 7px 3px;
 }
@@ -1382,7 +1382,7 @@ progress::-moz-progress-bar {
   padding: 15px 0;
 }
 .summary-panel .metric {
-  font-size: 13px;
+  font-size: 16px;
   max-width: 650px;
 }
 .fairness-facts {
@@ -1406,7 +1406,7 @@ progress::-moz-progress-bar {
   overflow: auto;
 }
 .summary-table table {
-  font-size: 13px;
+  font-size: 16px;
 }
 .summary-table thead th:first-child {
   width: 30%;
@@ -1420,7 +1420,7 @@ progress::-moz-progress-bar {
 .session-actions summary {
   cursor: pointer;
   padding: 16px 0;
-  font-size: 13px;
+  font-size: 16px;
   min-height: 44px;
   color: #2164c0;
 }
@@ -1440,7 +1440,7 @@ progress::-moz-progress-bar {
   margin-bottom: 0;
 }
 .history-card p {
-  font-size: 13px;
+  font-size: 16px;
 }
 .history-roster {
   display: flex;
@@ -1452,7 +1452,7 @@ progress::-moz-progress-bar {
   background: #f1f6ff;
   padding: 6px 10px;
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 16px;
   overflow-wrap: anywhere;
 }
 .history-roster b {
@@ -1540,7 +1540,7 @@ progress::-moz-progress-bar {
   }
   .connection {
     padding: 6px;
-    font-size: 9px;
+    font-size: 16px;
   }
   .mobile-settings {
     padding: 7px 10px;
@@ -1552,7 +1552,7 @@ progress::-moz-progress-bar {
     font-size: 18px;
   }
   .brand small {
-    font-size: 9px;
+    font-size: 16px;
   }
   .summary-grid {
     grid-template-columns: 1fr;
@@ -1566,7 +1566,7 @@ progress::-moz-progress-bar {
     padding: 13px;
   }
   .summary-table table {
-    font-size: 11px;
+    font-size: 16px;
   }
   .summary-table th,
   .summary-table td {
@@ -1604,4 +1604,34 @@ progress::-moz-progress-bar {
   * {
     scroll-behavior: auto !important;
   }
+}
+/* Readable body text and compact roster selection. */
+:root {
+  font-size: 16px;
+}
+.player-option strong {
+  flex: 1;
+  min-width: 0;
+}
+.player-option {
+  gap: 7px;
+}
+.player-option input[type="checkbox"]:not([class*="ant-"]) {
+  flex: 0 0 9.5px;
+  width: 9.5px;
+  height: 9.5px;
+  min-height: 9.5px;
+  padding: 0;
+  margin: 0;
+}
+.setup-form input[type="time"] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding-inline: 8px;
+}
+.setup-form input[type="time"]::-webkit-date-and-time-value {
+  min-width: 0;
+  text-align: left;
 }

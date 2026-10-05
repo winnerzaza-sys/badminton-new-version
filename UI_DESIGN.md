@@ -2,6 +2,11 @@
 
 ## Requested visual refinement — October 2026
 Ant Design controls: all dropdowns use Select, with search for larger option lists.
+Fixed-partner dropdowns disable typing/search and select directly from the roster.
+Body text and controls use a minimum 16px, retaining heading sizes and decorative
+icons. Today's roster checkboxes are 9.5px (50% of the original 19px), with the
+whole row remaining a touch target and flexible name space. The native start-time
+input stays within its gray field; the operating system controls its picker popup.
 Play setup uses a vertical Form, DatePicker, a native time input and InputNumber; the player
 editor uses Modal/Form/Input/Select. Confirmation dialogs await an explicit
 confirm/cancel result before persistence. Errors, warnings and persistent success

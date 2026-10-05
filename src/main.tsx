@@ -18,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
           colorText: "#152442",
           colorTextSecondary: "#4c6281",
           fontFamily: '"Sarabun", Tahoma, sans-serif',
+          fontSize: 16,
           borderRadius: 12,
           controlHeight: 44,
           controlHeightLG: 48,

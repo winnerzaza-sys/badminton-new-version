@@ -588,6 +588,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                       </AppSelect>
                       <AppSelect
                         aria-label={`คู่ล็อก ${name(id)}`}
+                        searchable={false}
                         value={p.fixedPartnerId ?? ""}
                         disabled={busy}
                         onChange={(e) => app.lock(id, e || undefined)}

@@ -6,6 +6,17 @@ test("Ant player validation and cancel/confirm preserve the correct session stat
 }) => {
   test.setTimeout(60000);
   await seedPlayers(page);
+  const playerChoice = page.locator(".player-option").first();
+  const checkboxSize = await playerChoice
+    .locator('input[type="checkbox"]')
+    .boundingBox();
+  expect(checkboxSize!.width).toBeCloseTo(9.5, 0);
+  expect(checkboxSize!.height).toBeCloseTo(9.5, 0);
+  expect(
+    await playerChoice
+      .locator("strong")
+      .evaluate((el) => getComputedStyle(el).fontSize),
+  ).toBe("16px");
   await page
     .getByRole("button", { name: "＋ เพิ่มผู้เล่น", exact: true })
     .click();
@@ -25,6 +36,9 @@ test("Ant player validation and cancel/confirm preserve the correct session stat
     page.getByRole("heading", { name: "ตารางการเล่น", exact: true }),
   ).toBeVisible();
   const before = await savedSession(page);
+  await expect(
+    page.getByRole("combobox", { name: "คู่ล็อก ผู้เล่น 1", exact: true }),
+  ).toHaveAttribute("readonly");
   await page.getByRole("button", { name: "จบเซสชัน", exact: true }).click();
   const confirmation = page
     .getByRole("dialog")

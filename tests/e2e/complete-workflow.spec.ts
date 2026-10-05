@@ -168,6 +168,9 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
     .locator(".block-toolbar")
     .getByRole("button", { name: "ตารางเล่น", exact: true })
     .click();
+  await expect(
+    page.getByRole("heading", { name: "ตารางการเล่น", exact: true }),
+  ).toBeVisible();
   await page
     .locator(".block-toolbar")
     .getByRole("button", { name: "ส่งออก / แชร์", exact: true })

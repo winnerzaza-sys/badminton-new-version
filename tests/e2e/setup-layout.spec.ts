@@ -7,6 +7,16 @@ test("play settings controls stay inside separate touch fields", async ({
   await expect(
     page.getByRole("heading", { name: "ตั้งค่าการเล่น" }),
   ).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  expect(
+    await page.locator("h1").evaluate((el) => getComputedStyle(el).fontFamily),
+  ).toContain("Prompt");
+  expect(
+    await page
+      .locator(".config-grid select")
+      .first()
+      .evaluate((el) => getComputedStyle(el).fontFamily),
+  ).toContain("Sarabun");
   const sizes = info.project.name.startsWith("ipad")
     ? info.project.name === "ipad-portrait"
       ? [

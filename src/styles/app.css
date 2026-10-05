@@ -1,5 +1,41 @@
+@font-face {
+  font-family: "Prompt";
+  src: url("/fonts/Prompt-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Prompt";
+  src: url("/fonts/Prompt-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Prompt";
+  src: url("/fonts/Prompt-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url("/fonts/Sarabun-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url("/fonts/Sarabun-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url("/fonts/Sarabun-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
 :root {
-  font-family: Tahoma, "Segoe UI", sans-serif;
+  font-family: "Sarabun", Tahoma, sans-serif;
   color: #152442;
   background: #f4faf9;
   font-synthesis: none;
@@ -44,6 +80,18 @@ h2,
 h3,
 p {
   margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.brand strong,
+.eyebrow,
+thead th,
+.score-ring strong {
+  font-family: "Prompt", "Sarabun", sans-serif;
 }
 h1 {
   font-size: 26px;

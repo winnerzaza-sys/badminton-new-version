@@ -56,7 +56,7 @@ export function renderShareCanvas(
     (_, i) => 32 + columns.slice(0, i).reduce((a, b) => a + b, 0),
   );
   const font = (size: number, bold = false) =>
-    `${bold ? "bold " : ""}${size}px Tahoma, "Segoe UI", sans-serif`;
+    `${bold ? "700 " : "400 "}${size}px "${bold ? "Prompt" : "Sarabun"}", sans-serif`;
   ctx.font = font(31);
   const rows = block.rounds.map((round) => {
     const cells = Array.from({ length: block.courtCount }, (_, index) => {
@@ -196,7 +196,13 @@ export async function createShareImage(
   block: ScheduleBlock,
   profiles: PlayerProfile[],
 ) {
-  if (document.fonts) await document.fonts.ready;
+  if (document.fonts) {
+    // Canvas-only weights may not have been requested by the current UI yet.
+    await Promise.all([
+      document.fonts.load('400 31px "Sarabun"', "ตาราง BADMINTON"),
+      document.fonts.load('700 46px "Prompt"', "ตาราง BADMINTON"),
+    ]);
+  }
   const canvas = renderShareCanvas(session, block, profiles);
   const blob = await new Promise<Blob>((resolve, reject) =>
     canvas.toBlob(

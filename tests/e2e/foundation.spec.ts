@@ -98,6 +98,17 @@ test("cached production shell and pairing work offline", async ({
   await expect(
     page.getByRole("heading", { name: "สร้างตารางวันนี้" }),
   ).toBeVisible();
+  const offlineFonts = await page.evaluate(async () => {
+    const faces = await Promise.all([
+      document.fonts.load('700 26px "Prompt"', "หัวข้อ"),
+      document.fonts.load('400 16px "Sarabun"', "ข้อความ"),
+    ]);
+    return faces.map(
+      (group) =>
+        group.length > 0 && group.every((face) => face.status === "loaded"),
+    );
+  });
+  expect(offlineFonts).toEqual([true, true]);
   await page.getByRole("button", { name: "เลือกทั้งหมด", exact: true }).click();
   await page.getByRole("button", { name: "✧ สร้างตาราง", exact: true }).click();
   await expect(

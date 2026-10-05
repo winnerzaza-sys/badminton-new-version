@@ -1,6 +1,11 @@
 # UI Design — Responsive PWA
 
 ## Requested visual refinement — October 2026
+Typography: use locally hosted Prompt for headings/titles (including branding,
+table headers and exported PNG headings), and Sarabun for body text and controls.
+Regular, semibold and bold files are included with their OFL licenses and cached
+for offline use. PNG export explicitly loads both font families before measuring.
+
 The user requested a cuter badminton theme after the initial release. Keep the
 reference's layout hierarchy, blue primary actions and green/pink/blue court/rest
 semantics, with a soft blue/mint background, rounder cards and a small decorative

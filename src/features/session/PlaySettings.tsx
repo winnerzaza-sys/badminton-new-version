@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Button, DatePicker, Form, InputNumber, TimePicker } from "antd";
+import { Button, DatePicker, Form, Input, InputNumber } from "antd";
 import dayjs from "dayjs";
 import { AppSelect } from "../../components/AppSelect";
 import type { SessionConfig } from "./service";
@@ -69,23 +69,8 @@ export function PlaySettings({
               classNames={{ popup: { root: "courtside-picker-popup" } }}
             />
           </Form.Item>
-          <Form.Item
-            label="เริ่มเล่น"
-            name="startTime"
-            rules={required}
-            getValueProps={(value) => ({
-              value: value ? dayjs(`2000-01-01T${value}`) : null,
-            })}
-            normalize={(value) => value?.format("HH:mm") ?? ""}
-          >
-            <TimePicker
-              format="HH:mm"
-              aria-label="เริ่มเล่น"
-              inputReadOnly
-              needConfirm={false}
-              showNow={false}
-              classNames={{ popup: { root: "courtside-picker-popup" } }}
-            />
+          <Form.Item label="เริ่มเล่น" name="startTime" rules={required}>
+            <Input type="time" aria-label="เริ่มเล่น" />
           </Form.Item>
           <Form.Item label="ระยะเวลา" name="durationMinutes" rules={required}>
             <AppSelect

@@ -2,7 +2,7 @@
 
 ## Requested visual refinement — October 2026
 Ant Design controls: all dropdowns use Select, with search for larger option lists.
-Play setup uses a vertical Form, DatePicker/TimePicker and InputNumber; the player
+Play setup uses a vertical Form, DatePicker, a native time input and InputNumber; the player
 editor uses Modal/Form/Input/Select. Confirmation dialogs await an explicit
 confirm/cancel result before persistence. Errors, warnings and persistent success
 feedback use Alert; saving a player also shows a message. Keep native court cards,

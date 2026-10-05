@@ -1,9 +1,9 @@
 :root {
   font-family: Tahoma, "Segoe UI", sans-serif;
   color: #152442;
-  background: #f3f7fc;
+  background: #f4faf9;
   font-synthesis: none;
-  --blue: #1266ef;
+  --blue: #1763d8;
   --muted: #4c6281;
 }
 * {
@@ -11,6 +11,9 @@
 }
 body {
   margin: 0;
+  background:
+    radial-gradient(ellipse at 95% 0%, #e0f4eb 0, transparent 45%),
+    radial-gradient(ellipse at 10% 90%, #edf0ff 0, transparent 45%);
 }
 button,
 input,
@@ -21,7 +24,7 @@ button {
   cursor: pointer;
   min-height: 44px;
   border: 0;
-  border-radius: 10px;
+  border-radius: 14px;
   font-weight: 600;
   padding: 10px 16px;
 }
@@ -61,6 +64,7 @@ small {
   line-height: 1.6;
 }
 label {
+  min-width: 0;
   font-size: 13px;
   font-weight: 600;
   display: grid;
@@ -68,11 +72,13 @@ label {
 }
 input,
 select {
+  min-width: 0;
+  max-width: 100%;
   min-height: 44px;
   width: 100%;
   border: 1px solid #d7e1f0;
   background: #fbfdff;
-  border-radius: 9px;
+  border-radius: 12px;
   padding: 10px 12px;
   color: #152442;
 }
@@ -121,8 +127,8 @@ hr {
   padding: 28px 16px;
   display: flex;
   flex-direction: column;
-  background: #edf5fc;
-  border-right: 1px solid #e4edf7;
+  background: linear-gradient(170deg, #edf6ff, #eaf6ef);
+  border-right: 1px solid #dcebe6;
 }
 .brand {
   display: flex;
@@ -156,7 +162,7 @@ hr {
   font-size: 22px;
 }
 .nav-item.selected {
-  background: #d9eaff;
+  background: #dceaff;
   color: #075ede;
 }
 .sidebar-context {
@@ -215,9 +221,10 @@ hr {
 }
 .panel {
   background: #fff;
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 4px 20px #29456d05;
+  border: 1px solid #e2ecea;
+  box-shadow: 0 5px 18px #244c4910;
   margin-bottom: 18px;
 }
 .page-title {
@@ -246,7 +253,7 @@ hr {
 .setup-help {
   align-self: start;
   margin-top: 77px;
-  background: linear-gradient(155deg, #fff, #eaf3ff);
+  background: linear-gradient(155deg, #fff, #edf8ef);
   padding: 30px;
 }
 .setup-help p {
@@ -282,6 +289,61 @@ hr {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
+.play-settings {
+  border-top: 4px solid #a5d9bd;
+}
+.play-settings .config-grid label {
+  padding: 11px;
+  border-radius: 15px;
+  background: #f5f9fc;
+  gap: 9px;
+}
+.config-grid input,
+.config-grid select {
+  display: block;
+  min-inline-size: 0;
+  inline-size: 100%;
+  min-height: 48px;
+  padding: 10px;
+  background: #fff;
+}
+.config-grid input::-webkit-date-and-time-value {
+  min-width: 0;
+  text-align: left;
+}
+.courtside-illustration {
+  width: 124px;
+  height: 90px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .config-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+@media (max-width: 767px) {
+  .courtside-illustration {
+    width: 76px;
+    height: 65px;
+  }
+  .setup-layout .page-title {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  .setup-layout .page-title > div {
+    min-width: 0;
+  }
+  .play-settings .config-grid label {
+    padding: 7px;
+  }
+  .config-grid input,
+  .config-grid select {
+    padding: 9px 6px;
+    font-size: 14px;
+  }
+}
 .count {
   display: inline-flex;
   background: #e8f1ff;
@@ -316,13 +378,13 @@ hr {
   gap: 10px;
   padding: 12px;
   border: 1px solid #e3eaf4;
-  border-radius: 10px;
+  border-radius: 15px;
   min-width: 0;
   cursor: pointer;
 }
 .player-option.checked {
-  background: #f2f7ff;
-  border-color: #a9caf7;
+  background: #edf6ff;
+  border-color: #a9c6ed;
 }
 .player-option strong {
   font-size: 13px;
@@ -465,19 +527,19 @@ hr {
   gap: 10px;
 }
 .court {
-  border-radius: 12px;
+  border-radius: 18px;
   overflow: hidden;
   padding-bottom: 16px;
   min-width: 0;
 }
 .court-1 {
-  background: #eaf9ef;
+  background: linear-gradient(160deg, #e5f7ec, #f2fbf5);
 }
 .court-2 {
-  background: #fff0f4;
+  background: linear-gradient(160deg, #ffeaf0, #fff6f8);
 }
 .rest {
-  background: #edf4ff;
+  background: linear-gradient(160deg, #e9f2ff, #f5f8ff);
 }
 .court h3 {
   padding: 10px 12px;

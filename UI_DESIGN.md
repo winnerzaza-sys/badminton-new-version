@@ -1,5 +1,17 @@
 # UI Design — Responsive PWA
 
+## Requested visual refinement — October 2026
+The user requested a cuter badminton theme after the initial release. Keep the
+reference's layout hierarchy, blue primary actions and green/pink/blue court/rest
+semantics, with a soft blue/mint background, rounder cards and a small decorative
+shuttle/racket/court illustration. The illustration is local SVG and has no
+interaction or accessible meaning. Export composition remains unchanged.
+
+Play settings use two columns across 768–1199px, rather than the initial three,
+to allow comfortable tablet controls. Labels and controls must allow shrinking
+inside their grid tracks, including native Safari date/time inputs. Browser checks
+cover 768, 820, 1024 and 1180px, as well as mobile, desktop and mobile WebKit.
+
 ## Visual Direction
 Friendly, modern badminton utility UI.
 - Light background.

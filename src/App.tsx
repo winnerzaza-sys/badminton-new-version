@@ -156,6 +156,12 @@ export function App() {
                   <h1>สร้างตารางวันนี้</h1>
                   <p>เลือกเพื่อน ตั้งเวลา แล้วจัดครบทุกเกมในครั้งเดียว</p>
                 </div>
+                <img
+                  className="courtside-illustration"
+                  src="/courtside.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
               </div>
               {unfinished && (
                 <article className="resume-card">
@@ -174,7 +180,7 @@ export function App() {
                 </article>
               )}
               <form onSubmit={generate}>
-                <section className="panel">
+                <section className="panel play-settings">
                   <div className="panel-title">
                     <h2>ตั้งค่าการเล่น</h2>
                     <span className="badge">

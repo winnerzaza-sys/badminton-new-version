@@ -1,6 +1,17 @@
 # Pairing Engine v2 — Algorithm
 
 ## 1. Strategy
+Court assignment refinement (requested after Phase 6): once the best pairing block
+is selected, interchange whole matches between Court 1 and Court 2. Minimize the
+number of players with at least two two-court appearances who never change courts,
+then minimize squared per-player court-count imbalance, then repeated same-court
+appearances. This is a soft tie-break; it must preserve teams, opponents, playing
+rounds, rests, fixed pairs and all five existing score components. Search all court
+labelings for up to 12 two-court rounds; use bounded deterministic improvement for
+longer blocks. One-court rounds are unchanged. Existing saved schedules and manual
+edits are not silently relabeled; the refinement applies when generating a block
+or regenerating the remaining rounds.
+
 Generate and optimize the entire schedule block (e.g. 6 rounds / 1 hour) instead of choosing only the next round.
 
 Pipeline:

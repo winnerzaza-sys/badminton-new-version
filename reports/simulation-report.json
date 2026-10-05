@@ -1,0 +1,1181 @@
+[
+  {
+    "count": 10,
+    "males": 0,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 0,
+    "misses": 0,
+    "maxRest": 2,
+    "maxPlay": 8,
+    "partnerRepeats": 1344,
+    "opponentRepeats": 4218,
+    "maxRateSpread": 0,
+    "partnerDistribution": {
+      "1": 1657,
+      "2": 724,
+      "3": 219,
+      "4": 43,
+      "5": 12,
+      "6": 1
+    },
+    "opponentDistribution": {
+      "1": 1339,
+      "2": 1259,
+      "3": 739,
+      "4": 325,
+      "5": 96,
+      "6": 22,
+      "7": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 10,
+    "males": 1,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 0,
+    "misses": 0,
+    "maxRest": 2,
+    "maxPlay": 8,
+    "partnerRepeats": 1344,
+    "opponentRepeats": 4218,
+    "maxRateSpread": 0,
+    "partnerDistribution": {
+      "1": 1657,
+      "2": 724,
+      "3": 219,
+      "4": 43,
+      "5": 12,
+      "6": 1
+    },
+    "opponentDistribution": {
+      "1": 1339,
+      "2": 1259,
+      "3": 739,
+      "4": 325,
+      "5": 96,
+      "6": 22,
+      "7": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 10,
+    "males": 2,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 0,
+    "misses": 0,
+    "maxRest": 2,
+    "maxPlay": 8,
+    "partnerRepeats": 1338,
+    "opponentRepeats": 4249,
+    "maxRateSpread": 0,
+    "partnerDistribution": {
+      "1": 1643,
+      "2": 749,
+      "3": 229,
+      "4": 33,
+      "5": 8
+    },
+    "opponentDistribution": {
+      "1": 1320,
+      "2": 1207,
+      "3": 768,
+      "4": 340,
+      "5": 94,
+      "6": 22
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 10,
+    "males": 5,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 0,
+    "misses": 0,
+    "maxRest": 2,
+    "maxPlay": 8,
+    "partnerRepeats": 1252,
+    "opponentRepeats": 4413,
+    "maxRateSpread": 0,
+    "partnerDistribution": {
+      "1": 1786,
+      "2": 727,
+      "3": 189,
+      "4": 38,
+      "5": 7,
+      "6": 1
+    },
+    "opponentDistribution": {
+      "1": 1238,
+      "2": 1037,
+      "3": 752,
+      "4": 389,
+      "5": 150,
+      "6": 21
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 10,
+    "males": 8,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 0,
+    "misses": 0,
+    "maxRest": 2,
+    "maxPlay": 8,
+    "partnerRepeats": 1361,
+    "opponentRepeats": 4395,
+    "maxRateSpread": 0,
+    "partnerDistribution": {
+      "1": 1647,
+      "2": 697,
+      "3": 226,
+      "4": 64,
+      "5": 5
+    },
+    "opponentDistribution": {
+      "1": 1384,
+      "2": 1027,
+      "3": 702,
+      "4": 311,
+      "5": 74,
+      "6": 7,
+      "8": 100
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 10,
+    "males": 9,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 9,
+    "misses": 100,
+    "maxRest": 10,
+    "maxPlay": 9,
+    "partnerRepeats": 1619,
+    "opponentRepeats": 4821,
+    "maxRateSpread": 0.9,
+    "partnerDistribution": {
+      "1": 1375,
+      "2": 589,
+      "3": 265,
+      "4": 115,
+      "5": 31,
+      "6": 5,
+      "7": 1
+    },
+    "opponentDistribution": {
+      "1": 847,
+      "2": 950,
+      "3": 671,
+      "4": 415,
+      "5": 210,
+      "6": 74,
+      "7": 10,
+      "8": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 10,
+    "males": 10,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 0,
+    "misses": 0,
+    "maxRest": 2,
+    "maxPlay": 8,
+    "partnerRepeats": 1344,
+    "opponentRepeats": 4218,
+    "maxRateSpread": 0,
+    "partnerDistribution": {
+      "1": 1657,
+      "2": 724,
+      "3": 219,
+      "4": 43,
+      "5": 12,
+      "6": 1
+    },
+    "opponentDistribution": {
+      "1": 1339,
+      "2": 1259,
+      "3": 739,
+      "4": 325,
+      "5": 96,
+      "6": 22,
+      "7": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 11,
+    "males": 0,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 8,
+    "partnerRepeats": 1047,
+    "opponentRepeats": 3697,
+    "maxRateSpread": 0.10000000000000009,
+    "partnerDistribution": {
+      "1": 2078,
+      "2": 728,
+      "3": 123,
+      "4": 23,
+      "5": 1
+    },
+    "opponentDistribution": {
+      "1": 1854,
+      "2": 1499,
+      "3": 699,
+      "4": 207,
+      "5": 41,
+      "6": 3
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 11,
+    "males": 1,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 8,
+    "partnerRepeats": 1047,
+    "opponentRepeats": 3697,
+    "maxRateSpread": 0.10000000000000009,
+    "partnerDistribution": {
+      "1": 2078,
+      "2": 728,
+      "3": 123,
+      "4": 23,
+      "5": 1
+    },
+    "opponentDistribution": {
+      "1": 1854,
+      "2": 1499,
+      "3": 699,
+      "4": 207,
+      "5": 41,
+      "6": 3
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 11,
+    "males": 2,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 8,
+    "partnerRepeats": 1072,
+    "opponentRepeats": 3692,
+    "maxRateSpread": 0.10000000000000009,
+    "partnerDistribution": {
+      "1": 2041,
+      "2": 723,
+      "3": 146,
+      "4": 15,
+      "5": 3
+    },
+    "opponentDistribution": {
+      "1": 1897,
+      "2": 1423,
+      "3": 741,
+      "4": 205,
+      "5": 38,
+      "6": 4
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 11,
+    "males": 5,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 8,
+    "partnerRepeats": 987,
+    "opponentRepeats": 3762,
+    "maxRateSpread": 0.10000000000000009,
+    "partnerDistribution": {
+      "1": 2163,
+      "2": 731,
+      "3": 103,
+      "4": 14,
+      "5": 2
+    },
+    "opponentDistribution": {
+      "1": 1816,
+      "2": 1393,
+      "3": 767,
+      "4": 216,
+      "5": 43,
+      "6": 3
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 11,
+    "males": 9,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 8,
+    "partnerRepeats": 1113,
+    "opponentRepeats": 3899,
+    "maxRateSpread": 0.10000000000000009,
+    "partnerDistribution": {
+      "1": 1970,
+      "2": 744,
+      "3": 153,
+      "4": 18,
+      "5": 1,
+      "6": 1
+    },
+    "opponentDistribution": {
+      "1": 1798,
+      "2": 1383,
+      "3": 612,
+      "4": 174,
+      "5": 32,
+      "6": 1,
+      "7": 70,
+      "8": 31
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 11,
+    "males": 10,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 8,
+    "misses": 100,
+    "maxRest": 10,
+    "maxPlay": 8,
+    "partnerRepeats": 1334,
+    "opponentRepeats": 4222,
+    "maxRateSpread": 0.8,
+    "partnerDistribution": {
+      "1": 1679,
+      "2": 708,
+      "3": 224,
+      "4": 42,
+      "5": 13
+    },
+    "opponentDistribution": {
+      "1": 1348,
+      "2": 1242,
+      "3": 734,
+      "4": 330,
+      "5": 100,
+      "6": 22,
+      "7": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 11,
+    "males": 11,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 8,
+    "partnerRepeats": 1047,
+    "opponentRepeats": 3697,
+    "maxRateSpread": 0.10000000000000009,
+    "partnerDistribution": {
+      "1": 2078,
+      "2": 728,
+      "3": 123,
+      "4": 23,
+      "5": 1
+    },
+    "opponentDistribution": {
+      "1": 1854,
+      "2": 1499,
+      "3": 699,
+      "4": 207,
+      "5": 41,
+      "6": 3
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 12,
+    "males": 0,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 6,
+    "partnerRepeats": 865,
+    "opponentRepeats": 3208,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2377,
+      "2": 659,
+      "3": 91,
+      "4": 8
+    },
+    "opponentDistribution": {
+      "1": 2428,
+      "2": 1641,
+      "3": 611,
+      "4": 103,
+      "5": 9
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 12,
+    "males": 1,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 6,
+    "partnerRepeats": 865,
+    "opponentRepeats": 3208,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2377,
+      "2": 659,
+      "3": 91,
+      "4": 8
+    },
+    "opponentDistribution": {
+      "1": 2428,
+      "2": 1641,
+      "3": 611,
+      "4": 103,
+      "5": 9
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 12,
+    "males": 2,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 7,
+    "partnerRepeats": 841,
+    "opponentRepeats": 3218,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2413,
+      "2": 653,
+      "3": 91,
+      "4": 2
+    },
+    "opponentDistribution": {
+      "1": 2437,
+      "2": 1618,
+      "3": 597,
+      "4": 115,
+      "5": 14,
+      "6": 1
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 12,
+    "males": 6,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 6,
+    "partnerRepeats": 809,
+    "opponentRepeats": 3350,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2466,
+      "2": 645,
+      "3": 76,
+      "4": 4
+    },
+    "opponentDistribution": {
+      "1": 2261,
+      "2": 1575,
+      "3": 677,
+      "4": 127,
+      "5": 10
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 12,
+    "males": 10,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 7,
+    "partnerRepeats": 907,
+    "opponentRepeats": 3365,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2303,
+      "2": 682,
+      "3": 100,
+      "4": 7,
+      "5": 1
+    },
+    "opponentDistribution": {
+      "1": 2462,
+      "2": 1465,
+      "3": 508,
+      "4": 91,
+      "5": 9,
+      "6": 25,
+      "7": 75
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 12,
+    "males": 11,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 8,
+    "misses": 100,
+    "maxRest": 10,
+    "maxPlay": 8,
+    "partnerRepeats": 1045,
+    "opponentRepeats": 3707,
+    "maxRateSpread": 0.8,
+    "partnerDistribution": {
+      "1": 2084,
+      "2": 723,
+      "3": 123,
+      "4": 24,
+      "5": 1
+    },
+    "opponentDistribution": {
+      "1": 1842,
+      "2": 1491,
+      "3": 707,
+      "4": 212,
+      "5": 39,
+      "6": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 12,
+    "males": 12,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 6,
+    "partnerRepeats": 865,
+    "opponentRepeats": 3208,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2377,
+      "2": 659,
+      "3": 91,
+      "4": 8
+    },
+    "opponentDistribution": {
+      "1": 2428,
+      "2": 1641,
+      "3": 611,
+      "4": 103,
+      "5": 9
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 13,
+    "males": 0,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 6,
+    "partnerRepeats": 711,
+    "opponentRepeats": 2727,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2645,
+      "2": 580,
+      "3": 61,
+      "4": 3
+    },
+    "opponentDistribution": {
+      "1": 3101,
+      "2": 1688,
+      "3": 415,
+      "4": 67,
+      "5": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 13,
+    "males": 1,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 6,
+    "partnerRepeats": 711,
+    "opponentRepeats": 2727,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2645,
+      "2": 580,
+      "3": 61,
+      "4": 3
+    },
+    "opponentDistribution": {
+      "1": 3101,
+      "2": 1688,
+      "3": 415,
+      "4": 67,
+      "5": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 13,
+    "males": 2,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 5,
+    "partnerRepeats": 690,
+    "opponentRepeats": 2749,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2674,
+      "2": 583,
+      "3": 52,
+      "4": 1
+    },
+    "opponentDistribution": {
+      "1": 3096,
+      "2": 1627,
+      "3": 467,
+      "4": 56,
+      "5": 5
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 13,
+    "males": 6,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 6,
+    "partnerRepeats": 619,
+    "opponentRepeats": 2822,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2803,
+      "2": 538,
+      "3": 39,
+      "4": 1
+    },
+    "opponentDistribution": {
+      "1": 2983,
+      "2": 1640,
+      "3": 487,
+      "4": 65,
+      "5": 2,
+      "6": 1
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 13,
+    "males": 11,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 6,
+    "partnerRepeats": 717,
+    "opponentRepeats": 2975,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2639,
+      "2": 579,
+      "3": 57,
+      "4": 8
+    },
+    "opponentDistribution": {
+      "1": 2958,
+      "2": 1519,
+      "3": 393,
+      "4": 52,
+      "5": 3,
+      "6": 98,
+      "7": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 13,
+    "males": 12,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 7,
+    "misses": 100,
+    "maxRest": 10,
+    "maxPlay": 6,
+    "partnerRepeats": 879,
+    "opponentRepeats": 3206,
+    "maxRateSpread": 0.7,
+    "partnerDistribution": {
+      "1": 2353,
+      "2": 666,
+      "3": 93,
+      "4": 9
+    },
+    "opponentDistribution": {
+      "1": 2436,
+      "2": 1638,
+      "3": 603,
+      "4": 106,
+      "5": 11
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 13,
+    "males": 13,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 6,
+    "partnerRepeats": 711,
+    "opponentRepeats": 2727,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2645,
+      "2": 580,
+      "3": 61,
+      "4": 3
+    },
+    "opponentDistribution": {
+      "1": 3101,
+      "2": 1688,
+      "3": 415,
+      "4": 67,
+      "5": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 14,
+    "males": 0,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 5,
+    "partnerRepeats": 600,
+    "opponentRepeats": 2365,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2843,
+      "2": 518,
+      "3": 35,
+      "4": 4
+    },
+    "opponentDistribution": {
+      "1": 3679,
+      "2": 1576,
+      "3": 352,
+      "4": 27,
+      "5": 1
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 14,
+    "males": 1,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 5,
+    "partnerRepeats": 600,
+    "opponentRepeats": 2365,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2843,
+      "2": 518,
+      "3": 35,
+      "4": 4
+    },
+    "opponentDistribution": {
+      "1": 3679,
+      "2": 1576,
+      "3": 352,
+      "4": 27,
+      "5": 1
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 14,
+    "males": 2,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 6,
+    "partnerRepeats": 601,
+    "opponentRepeats": 2386,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2842,
+      "2": 515,
+      "3": 40,
+      "4": 2
+    },
+    "opponentDistribution": {
+      "1": 3634,
+      "2": 1604,
+      "3": 347,
+      "4": 28,
+      "5": 1
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 14,
+    "males": 7,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 5,
+    "partnerRepeats": 540,
+    "opponentRepeats": 2522,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2958,
+      "2": 465,
+      "3": 36,
+      "4": 1
+    },
+    "opponentDistribution": {
+      "1": 3415,
+      "2": 1646,
+      "3": 379,
+      "4": 34,
+      "5": 4
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 14,
+    "males": 12,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 5,
+    "partnerRepeats": 626,
+    "opponentRepeats": 2617,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2806,
+      "2": 512,
+      "3": 54,
+      "4": 2
+    },
+    "opponentDistribution": {
+      "1": 3531,
+      "2": 1395,
+      "3": 323,
+      "4": 32,
+      "5": 30,
+      "6": 72
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 14,
+    "males": 13,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 7,
+    "misses": 100,
+    "maxRest": 10,
+    "maxPlay": 6,
+    "partnerRepeats": 729,
+    "opponentRepeats": 2746,
+    "maxRateSpread": 0.7,
+    "partnerDistribution": {
+      "1": 2616,
+      "2": 584,
+      "3": 68,
+      "4": 3
+    },
+    "opponentDistribution": {
+      "1": 3078,
+      "2": 1677,
+      "3": 430,
+      "4": 67,
+      "5": 2
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 14,
+    "males": 14,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 5,
+    "partnerRepeats": 600,
+    "opponentRepeats": 2365,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 2843,
+      "2": 518,
+      "3": 35,
+      "4": 4
+    },
+    "opponentDistribution": {
+      "1": 3679,
+      "2": 1576,
+      "3": 352,
+      "4": 27,
+      "5": 1
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 15,
+    "males": 0,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 6,
+    "partnerRepeats": 463,
+    "opponentRepeats": 2127,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 3091,
+      "2": 429,
+      "3": 17
+    },
+    "opponentDistribution": {
+      "1": 4048,
+      "2": 1542,
+      "3": 264,
+      "4": 19
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 15,
+    "males": 1,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 6,
+    "partnerRepeats": 463,
+    "opponentRepeats": 2127,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 3091,
+      "2": 429,
+      "3": 17
+    },
+    "opponentDistribution": {
+      "1": 4048,
+      "2": 1542,
+      "3": 264,
+      "4": 19
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 15,
+    "males": 2,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 4,
+    "partnerRepeats": 449,
+    "opponentRepeats": 2131,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 3123,
+      "2": 407,
+      "3": 21
+    },
+    "opponentDistribution": {
+      "1": 4035,
+      "2": 1554,
+      "3": 263,
+      "4": 17
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 15,
+    "males": 7,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 4,
+    "partnerRepeats": 427,
+    "opponentRepeats": 2170,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 3155,
+      "2": 409,
+      "3": 9
+    },
+    "opponentDistribution": {
+      "1": 3956,
+      "2": 1595,
+      "3": 262,
+      "4": 17
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 15,
+    "males": 13,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 3,
+    "maxPlay": 4,
+    "partnerRepeats": 500,
+    "opponentRepeats": 2310,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 3025,
+      "2": 451,
+      "3": 23,
+      "4": 1
+    },
+    "opponentDistribution": {
+      "1": 3958,
+      "2": 1392,
+      "3": 221,
+      "4": 19,
+      "5": 81,
+      "6": 19
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 15,
+    "males": 14,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 6,
+    "misses": 100,
+    "maxRest": 10,
+    "maxPlay": 5,
+    "partnerRepeats": 609,
+    "opponentRepeats": 2358,
+    "maxRateSpread": 0.6,
+    "partnerDistribution": {
+      "1": 2827,
+      "2": 523,
+      "3": 37,
+      "4": 4
+    },
+    "opponentDistribution": {
+      "1": 3704,
+      "2": 1548,
+      "3": 361,
+      "4": 28,
+      "5": 1
+    },
+    "noValidSchedule": 0
+  },
+  {
+    "count": 15,
+    "males": 15,
+    "seeds": 100,
+    "violations": 0,
+    "worstSpread": 1,
+    "misses": 0,
+    "maxRest": 4,
+    "maxPlay": 6,
+    "partnerRepeats": 463,
+    "opponentRepeats": 2127,
+    "maxRateSpread": 0.09999999999999998,
+    "partnerDistribution": {
+      "1": 3091,
+      "2": 429,
+      "3": 17
+    },
+    "opponentDistribution": {
+      "1": 4048,
+      "2": 1542,
+      "3": 264,
+      "4": 19
+    },
+    "noValidSchedule": 0
+  }
+]

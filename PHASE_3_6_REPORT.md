@@ -40,4 +40,25 @@ The final browser suite passed 20 tests with 20 intentionally skipped duplicate/
 
 ## Remaining device verification
 
+## Post-release Ant Design migration
+
+Ant Design 6.6.5 now supplies all dropdowns, play setup Form/DatePicker/TimePicker/
+InputNumber, the player Modal/Form, asynchronous confirmation dialogs, Alert
+feedback and a player-save message. Larger dropdown lists allow searching. Native
+CSS is scoped to avoid affecting library inputs and calendar tables. Tablet setup
+keeps two columns at 768–1199px; phone calendar/time popups are positioned within
+the viewport. Date/time values remain local YYYY-MM-DD and HH:mm storage strings.
+Court presentation, pairing rules, canvas rendering and IndexedDB schema are unchanged.
+
+Final migration validation: production build passed; 29 unit tests passed; the full
+browser suite passed 35 tests with 20 intentional platform-specific skips. Coverage
+includes dropdown popup bounds, date/time draft persistence, whitespace validation,
+confirm/cancel persistence, five automated accessibility cases, complete editing/
+sharing flows, Chromium offline reload and WebKit origin-shutdown offline launch.
+The offline precache is approximately 1.8 MiB including local font assets; the main
+JavaScript is approximately 330 kB gzipped. The domain simulation matrix was not
+rerun for this UI-only migration.
+
+### Device checks
+
 Real iPhone/iPad home-screen installation, Safari process eviction/relaunch and choosing LINE in a physical device's native share sheet were not tested here. WebKit automation exercises the browser engine and offline workflows but does not reproduce iOS storage quotas, installation UI or the LINE app. Backup import, cloud sync and physical match scores remain outside MVP scope.

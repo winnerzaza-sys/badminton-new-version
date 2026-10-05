@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Alert } from "antd";
 import type {
   Session,
   ScheduleBlock,
@@ -79,9 +80,13 @@ export function SharePreview({
         เลือก LINE ในเมนูแชร์ของอุปกรณ์ หากไม่รองรับจะดาวน์โหลดภาพแทน
       </p>
       {message && (
-        <p role="status" className="notice">
-          {message}
-        </p>
+        <Alert
+          role="status"
+          className="app-feedback"
+          type="info"
+          showIcon
+          title={message}
+        />
       )}
       {url ? (
         <>

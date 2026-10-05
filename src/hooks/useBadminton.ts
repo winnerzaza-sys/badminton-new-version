@@ -1,3 +1,4 @@
+import { App as AntApp } from "antd";
 import { useEffect, useState } from "react";
 import { hydrateSession } from "../features/session/hydrate";
 import type {
@@ -36,6 +37,16 @@ type Page =
   | "share"
   | "settings";
 export function useBadminton() {
+  const { modal, message } = AntApp.useApp();
+  const confirm = async (content: string) =>
+    await modal.confirm({
+      title: "ยืนยันการเปลี่ยนแปลง",
+      content,
+      okText: "ยืนยัน",
+      cancelText: "ยกเลิก",
+      autoFocusButton: "cancel",
+      mask: { closable: false },
+    });
   const [players, setPlayers] = useState<PlayerProfile[]>([]),
     [sessions, setSessions] = useState<Session[]>([]),
     [session, setSession] = useState<Session>(),
@@ -114,8 +125,8 @@ export function useBadminton() {
     setPlayerName(player?.name ?? "");
     setGender(player?.gender ?? "M");
   }
-  async function savePlayer(e: React.FormEvent) {
-    e.preventDefault();
+  async function savePlayer(e?: React.FormEvent) {
+    e?.preventDefault();
     const trimmed = playerName.trim();
     if (!trimmed) return;
     setBusy(true);
@@ -141,6 +152,7 @@ export function useBadminton() {
         setSelected(nextSelection);
       }
       setEditing(undefined);
+      void message.success("บันทึกรายชื่อเรียบร้อย");
     } catch {
       setError("บันทึกผู้เล่นไม่ได้ กรุณาลองอีกครั้ง");
     } finally {
@@ -149,9 +161,9 @@ export function useBadminton() {
   }
   async function deactivate(player: PlayerProfile) {
     if (
-      !window.confirm(
+      !(await confirm(
         `ปิดใช้งาน ${player.name}? ข้อมูลในเซสชันเดิมจะยังเก็บไว้`,
-      )
+      ))
     )
       return;
     try {
@@ -162,8 +174,8 @@ export function useBadminton() {
       setError("บันทึกการเปลี่ยนแปลงไม่ได้");
     }
   }
-  async function generate(e: React.FormEvent) {
-    e.preventDefault();
+  async function generate(e?: React.FormEvent) {
+    e?.preventDefault();
     setBusy(true);
     setError("");
     // Yield so the busy state is painted before the bounded domain search starts.
@@ -287,9 +299,9 @@ export function useBadminton() {
         delta = proposal.score.total - block.score.total;
       if (
         delta < -0.05 &&
-        !window.confirm(
+        !(await confirm(
           `คะแนนตารางเปลี่ยน ${delta.toFixed(1)} คะแนน จาก ${block.score.total.toFixed(1)} เป็น ${proposal.score.total.toFixed(1)} ยืนยันการสลับ?`,
-        )
+        ))
       )
         return;
       await changeBlock(
@@ -304,13 +316,13 @@ export function useBadminton() {
   }
   const undo = () =>
     changeBlock((s, b) => undoEdit(s, b, players), "ย้อนการแก้ไขแล้ว");
-  function reset(all: boolean) {
+  async function reset(all: boolean) {
     if (
-      !window.confirm(
+      !(await confirm(
         all
           ? "คืนค่าตารางทั้งช่วงเป็นฉบับที่จัดไว้?"
           : "คืนค่ารอบที่เลือกเป็นฉบับที่จัดไว้?",
-      )
+      ))
     )
       return;
     return changeBlock(
@@ -318,11 +330,11 @@ export function useBadminton() {
       "คืนค่าตารางแล้ว",
     );
   }
-  function regenerate() {
+  async function regenerate() {
     if (
-      !window.confirm(
+      !(await confirm(
         `จัดใหม่ตั้งแต่รอบ ${block?.rounds[roundIndex].roundNumber} เป็นต้นไป? รอบก่อนหน้าจะคงเดิม`,
-      )
+      ))
     )
       return;
     return changeBlock(
@@ -330,12 +342,12 @@ export function useBadminton() {
       "จัดตารางรอบที่เหลือใหม่แล้ว",
     );
   }
-  const status = (id: string, value: SessionPlayerStatus) => {
+  const status = async (id: string, value: SessionPlayerStatus) => {
     if (
       value === "LEFT" &&
-      !window.confirm(
+      !(await confirm(
         `${name(id)} ออกจากเซสชันตั้งแต่รอบ ${block?.rounds[roundIndex].roundNumber}? จะไม่ถูกจัดในรอบที่เหลือ`,
-      )
+      ))
     )
       return;
     return mutate(
@@ -365,7 +377,9 @@ export function useBadminton() {
     );
   async function complete() {
     if (
-      !window.confirm("จบเซสชันและเก็บในประวัติ? ตารางนี้จะเปิดดูได้อย่างเดียว")
+      !(await confirm(
+        "จบเซสชันและเก็บในประวัติ? ตารางนี้จะเปิดดูได้อย่างเดียว",
+      ))
     )
       return;
     await mutate((s) => archiveSession(s), "เก็บเซสชันในประวัติแล้ว");

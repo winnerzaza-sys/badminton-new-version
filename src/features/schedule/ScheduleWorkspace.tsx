@@ -1,3 +1,5 @@
+import { AppSelect } from "../../components/AppSelect";
+import { Alert } from "antd";
 import { useEffect, useState } from "react";
 import type { RoundSchedule } from "../../domain/models";
 import type { useBadminton } from "../../hooks/useBadminton";
@@ -261,10 +263,10 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
       <div className="block-toolbar">
         <label>
           ช่วงเล่น
-          <select
+          <AppSelect
             value={blockIndex}
             onChange={(e) => {
-              setBlockIndex(+e.target.value);
+              setBlockIndex(+e);
               setRoundIndex(0);
               setPicked(undefined);
             }}
@@ -275,7 +277,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                 {formatTime(b.rounds.at(-1)?.estimatedEnd)}
               </option>
             ))}
-          </select>
+          </AppSelect>
         </label>
         <div className="toolbar">
           <button
@@ -310,11 +312,13 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
         </div>
       </div>
       {!!block.warnings?.length && (
-        <div className="warning" role="status">
-          {block.warnings.map((message) => (
-            <p key={message}>{message}</p>
-          ))}
-        </div>
+        <Alert
+          className="app-feedback"
+          type="warning"
+          showIcon
+          role="status"
+          title={block.warnings.join(" · ")}
+        />
       )}
       {page === "share" ? (
         <SharePreview session={session} block={block} profiles={app.players} />
@@ -571,26 +575,22 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                   </div>
                   {!readOnly ? (
                     <div className="roster-controls">
-                      <select
+                      <AppSelect
                         aria-label={`สถานะ ${name(id)}`}
                         value={p.status}
                         disabled={busy || p.status === "LEFT"}
-                        onChange={(e) =>
-                          app.status(id, e.target.value as typeof p.status)
-                        }
+                        onChange={(e) => app.status(id, e as typeof p.status)}
                       >
                         <option value="ACTIVE">พร้อมเล่น</option>
                         <option value="NOT_ARRIVED">ยังไม่ถึง</option>
                         <option value="PAUSED">พักเอง</option>
                         <option value="LEFT">ออกแล้ว</option>
-                      </select>
-                      <select
+                      </AppSelect>
+                      <AppSelect
                         aria-label={`คู่ล็อก ${name(id)}`}
                         value={p.fixedPartnerId ?? ""}
                         disabled={busy}
-                        onChange={(e) =>
-                          app.lock(id, e.target.value || undefined)
-                        }
+                        onChange={(e) => app.lock(id, e || undefined)}
                       >
                         <option value="">ไม่ล็อกคู่</option>
                         {session.playerIds
@@ -600,7 +600,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                               {name(other)}
                             </option>
                           ))}
-                      </select>
+                      </AppSelect>
                     </div>
                   ) : (
                     <small>
@@ -621,10 +621,10 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                 <hr />
                 <label>
                   เพิ่มคนที่มาทีหลัง
-                  <select
+                  <AppSelect
                     aria-label="ผู้เล่นที่มาทีหลัง"
                     value={lateId}
-                    onChange={(e) => setLateId(e.target.value)}
+                    onChange={(e) => setLateId(e)}
                   >
                     <option value="">เลือกผู้เล่น</option>
                     {lateOptions.map((p) => (
@@ -632,7 +632,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                         {p.name}
                       </option>
                     ))}
-                  </select>
+                  </AppSelect>
                 </label>
                 <button
                   className="secondary full-width"
@@ -682,27 +682,27 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
             <div className="append-form">
               <label>
                 ระยะเวลา
-                <select
+                <AppSelect
                   value={duration}
                   onChange={(e) => {
-                    setDuration(+e.target.value);
-                    setRounds(+e.target.value / 10);
+                    setDuration(+e);
+                    setRounds(+e / 10);
                   }}
                 >
                   <option value={60}>1 ชั่วโมง</option>
                   <option value={90}>1.5 ชั่วโมง</option>
                   <option value={120}>2 ชั่วโมง</option>
-                </select>
+                </AppSelect>
               </label>
               <label>
                 สนาม
-                <select
+                <AppSelect
                   value={courts}
-                  onChange={(e) => setCourts(+e.target.value as 1 | 2)}
+                  onChange={(e) => setCourts(+e as 1 | 2)}
                 >
                   <option value={1}>1 สนาม</option>
                   <option value={2}>2 สนาม</option>
-                </select>
+                </AppSelect>
               </label>
               <label>
                 รอบ

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Alert } from "antd";
 import type { useBadminton } from "../../hooks/useBadminton";
 import { downloadFile } from "../share/service";
 export function Settings({ app }: { app: ReturnType<typeof useBadminton> }) {
@@ -160,9 +161,13 @@ export function Settings({ app }: { app: ReturnType<typeof useBadminton> }) {
         </div>
       </section>
       {message && (
-        <p className="notice" role="status">
-          {message}
-        </p>
+        <Alert
+          className="app-feedback"
+          role="status"
+          type="info"
+          showIcon
+          title={message}
+        />
       )}
     </main>
   );

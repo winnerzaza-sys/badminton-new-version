@@ -1,3 +1,6 @@
+import { Alert, Button, Form, Input, Modal } from "antd";
+import { PlaySettings } from "./features/session/PlaySettings";
+import { AppSelect } from "./components/AppSelect";
 import { ScheduleWorkspace } from "./features/schedule/ScheduleWorkspace";
 import { History } from "./features/history/History";
 import { Settings } from "./features/home/Settings";
@@ -134,17 +137,24 @@ export function App() {
           </button>
         </header>
         {error && editing === undefined && (
-          <div className="error" role="alert">
-            {error}
-            <button aria-label="ปิดข้อความ" onClick={() => setError("")}>
-              ×
-            </button>
-          </div>
+          <Alert
+            className="app-feedback"
+            type="error"
+            title={error}
+            role="alert"
+            showIcon
+            closable={{ closeIcon: <span aria-label="ปิดข้อความ">×</span> }}
+            onClose={() => setError("")}
+          />
         )}
         {app.notice && (
-          <div className="notice" role="status">
-            {app.notice}
-          </div>
+          <Alert
+            className="app-feedback"
+            type="success"
+            title={app.notice}
+            role="status"
+            showIcon
+          />
         )}
         {!loaded && !error && <p role="status">กำลังเปิดข้อมูลในเครื่อง…</p>}
         {loaded && page === "home" && (
@@ -179,90 +189,13 @@ export function App() {
                   </button>
                 </article>
               )}
-              <form onSubmit={generate}>
-                <section className="panel play-settings">
-                  <div className="panel-title">
-                    <h2>ตั้งค่าการเล่น</h2>
-                    <span className="badge">
-                      {config.durationMinutes / 60} ชั่วโมง
-                    </span>
-                  </div>
-                  <div className="config-grid">
-                    <label>
-                      วันที่
-                      <input
-                        type="date"
-                        required
-                        value={config.date}
-                        onChange={(e) => setField("date", e.target.value)}
-                      />
-                    </label>
-                    <label>
-                      เริ่มเล่น
-                      <input
-                        type="time"
-                        required
-                        value={config.startTime}
-                        onChange={(e) => setField("startTime", e.target.value)}
-                      />
-                    </label>
-                    <label>
-                      ระยะเวลา
-                      <select
-                        value={config.durationMinutes}
-                        onChange={(e) =>
-                          setConfig((prev) => ({
-                            ...prev,
-                            durationMinutes: +e.target.value,
-                            plannedRounds: +e.target.value / 10,
-                          }))
-                        }
-                      >
-                        <option value={60}>1 ชั่วโมง</option>
-                        <option value={90}>1.5 ชั่วโมง</option>
-                        <option value={120}>2 ชั่วโมง</option>
-                      </select>
-                    </label>
-                    <label>
-                      สนาม
-                      <select
-                        value={config.courtCount}
-                        onChange={(e) =>
-                          setField("courtCount", +e.target.value as 1 | 2)
-                        }
-                      >
-                        <option value={1}>1 สนาม</option>
-                        <option value={2}>2 สนาม</option>
-                      </select>
-                    </label>
-                    <label>
-                      แต้ม / เกม
-                      <input
-                        type="number"
-                        min={1}
-                        max={99}
-                        required
-                        value={config.pointsPerGame}
-                        onChange={(e) =>
-                          setField("pointsPerGame", +e.target.value)
-                        }
-                      />
-                    </label>
-                    <label>
-                      จำนวนรอบ
-                      <input
-                        type="number"
-                        min={1}
-                        max={30}
-                        required
-                        value={config.plannedRounds}
-                        onChange={(e) =>
-                          setField("plannedRounds", +e.target.value)
-                        }
-                      />
-                    </label>
-                  </div>
-                </section>
+              <PlaySettings
+                config={config}
+                setConfig={setConfig}
+                generate={generate}
+                busy={busy}
+                selectedCount={selected.length}
+              >
                 <section className="panel">
                   <div className="panel-title">
                     <h2>
@@ -332,22 +265,7 @@ export function App() {
                     </div>
                   )}
                 </section>
-                <div className="generate-footer">
-                  <div>
-                    <strong>
-                      {selected.length} คน · {config.courtCount} สนาม ·{" "}
-                      {config.plannedRounds} รอบ
-                    </strong>
-                    <small>ตารางทั้งช่วงเวลา ไม่ต้องกดจบทีละเกม</small>
-                  </div>
-                  <button
-                    className="primary"
-                    disabled={busy || selected.length < config.courtCount * 4}
-                  >
-                    {busy ? "กำลังจัดตาราง…" : "✧ สร้างตาราง"}
-                  </button>
-                </div>
-              </form>
+              </PlaySettings>
             </section>
             <aside className="setup-help panel">
               <span className="help-icon">🏸</span>
@@ -438,79 +356,66 @@ export function App() {
       <nav className="bottom-nav" aria-label="เมนูมือถือ">
         {navigation}
       </nav>
-      {editing !== undefined && (
-        <div className="modal-backdrop">
-          <section
-            className="modal panel"
-            role="dialog"
-            onKeyDown={(event) => {
-              if (event.key === "Escape") setEditing(undefined);
-              if (event.key === "Tab") {
-                const elements = Array.from(
-                  event.currentTarget.querySelectorAll<HTMLElement>(
-                    "button:not(:disabled),input,select",
-                  ),
-                );
-                const first = elements[0],
-                  last = elements.at(-1);
-                if (event.shiftKey && document.activeElement === first) {
-                  event.preventDefault();
-                  last?.focus();
-                } else if (!event.shiftKey && document.activeElement === last) {
-                  event.preventDefault();
-                  first?.focus();
-                }
-              }
-            }}
-            aria-modal="true"
-            aria-labelledby="player-dialog-title"
+      <Modal
+        open={editing !== undefined}
+        title={
+          <h2 id="player-dialog-title">
+            {editing ? "แก้ไขผู้เล่น" : "เพิ่มผู้เล่น"}
+          </h2>
+        }
+        footer={null}
+        onCancel={() => setEditing(undefined)}
+        destroyOnHidden
+        closable={{ "aria-label": "ปิด" }}
+        mask={{ closable: false }}
+        width={440}
+      >
+        {error && <Alert type="error" title={error} showIcon role="alert" />}
+        {editing !== undefined && (
+          <Form
+            key={editing?.id ?? "new"}
+            layout="vertical"
+            initialValues={{ name: playerName, gender }}
+            onFinish={() => savePlayer()}
           >
-            <div className="panel-title">
-              <h2 id="player-dialog-title">
-                {editing ? "แก้ไขผู้เล่น" : "เพิ่มผู้เล่น"}
-              </h2>
-              <button
-                className="secondary"
-                aria-label="ปิด"
-                onClick={() => setEditing(undefined)}
+            <Form.Item
+              label="ชื่อผู้เล่น"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  whitespace: true,
+                  message: "กรุณาระบุชื่อผู้เล่น",
+                },
+              ]}
+            >
+              <Input
+                autoFocus
+                maxLength={40}
+                aria-label="ชื่อผู้เล่น"
+                onChange={(e) => setPlayerName(e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item
+              label="เพศ"
+              name="gender"
+              rules={[{ required: true, message: "กรุณาเลือกเพศ" }]}
+            >
+              <AppSelect
+                value={gender}
+                aria-label="เพศ"
+                onChange={(value) => setGender(value as "M" | "F")}
               >
-                ×
-              </button>
-            </div>
-            {error && (
-              <div className="error" role="alert">
-                {error}
-              </div>
-            )}
-            <form onSubmit={savePlayer}>
-              <label>
-                ชื่อผู้เล่น
-                <input
-                  autoFocus
-                  required
-                  maxLength={40}
-                  value={playerName}
-                  onChange={(e) => setPlayerName(e.target.value)}
-                />
-              </label>
-              <label>
-                เพศ
-                <select
-                  aria-label="เพศ"
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value as "M" | "F")}
-                >
-                  <option value="M">ชาย</option>
-                  <option value="F">หญิง</option>
-                </select>
-              </label>
-              <button className="primary" disabled={busy || !playerName.trim()}>
-                บันทึกผู้เล่น
-              </button>
-            </form>
-          </section>
-        </div>
-      )}
+                <option value="M">ชาย</option>
+                <option value="F">หญิง</option>
+              </AppSelect>
+            </Form.Item>
+            <Button type="primary" htmlType="submit" loading={busy}>
+              บันทึกผู้เล่น
+            </Button>
+          </Form>
+        )}
+      </Modal>
     </div>
   );
 }

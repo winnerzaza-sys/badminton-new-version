@@ -1,6 +1,15 @@
 # UI Design — Responsive PWA
 
 ## Requested visual refinement — October 2026
+Ant Design controls: all dropdowns use Select, with search for larger option lists.
+Play setup uses a vertical Form, DatePicker/TimePicker and InputNumber; the player
+editor uses Modal/Form/Input/Select. Confirmation dialogs await an explicit
+confirm/cancel result before persistence. Errors, warnings and persistent success
+feedback use Alert; saving a player also shows a message. Keep native court cards,
+touch swapping, navigation layouts and the deterministic canvas export. Primary
+controls remain at least 44px; tablet setup remains two columns. Calendar values
+are stored as local YYYY-MM-DD and HH:mm strings, preserving the domain model.
+
 Typography: use locally hosted Prompt for headings/titles (including branding,
 table headers and exported PNG headings), and Sarabun for body text and controls.
 Regular, semibold and bold files are included with their OFL licenses and cached

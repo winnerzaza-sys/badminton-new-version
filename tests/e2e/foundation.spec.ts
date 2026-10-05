@@ -1,3 +1,4 @@
+import { choose, autoConfirm } from "./helpers";
 import { test, expect } from "@playwright/test";
 import { seedPlayers } from "./helpers";
 test("full-block generation, persistence and four intentional layouts", async ({
@@ -59,7 +60,7 @@ test("player add, edit, deactivate and draft survive refresh", async ({
   await page.goto("/");
   await page.getByRole("button", { name: "เพิ่มผู้เล่นคนแรก" }).click();
   await page.getByLabel("ชื่อผู้เล่น").fill("ทดสอบ");
-  await page.getByLabel("เพศ", { exact: true }).selectOption("F");
+  await choose(page, page.getByLabel("เพศ", { exact: true }), "F");
   await page.getByRole("button", { name: "บันทึกผู้เล่น" }).click();
   await expect(page.getByRole("dialog")).toBeHidden();
   await page.reload();
@@ -72,7 +73,7 @@ test("player add, edit, deactivate and draft survive refresh", async ({
   await page.getByLabel("ชื่อผู้เล่น").fill("แก้ไขชื่อ");
   await page.getByRole("button", { name: "บันทึกผู้เล่น" }).click();
   await expect(page.getByText("แก้ไขชื่อ", { exact: true })).toBeVisible();
-  page.on("dialog", (dialog) => dialog.accept());
+  await autoConfirm(page);
   await page.getByRole("button", { name: "ปิดใช้งาน", exact: true }).click();
   await expect(
     page.getByRole("button", { name: "เปิดใช้งาน", exact: true }),

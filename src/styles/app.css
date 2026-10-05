@@ -42,6 +42,77 @@
   --blue: #1763d8;
   --muted: #4c6281;
 }
+.app-select,
+.ant-input-number,
+.setup-form .ant-picker {
+  width: 100%;
+  min-width: 0;
+}
+.setup-form .ant-form-item {
+  margin-bottom: 0;
+  min-width: 0;
+}
+.setup-form .ant-form-item-label {
+  padding-bottom: 9px;
+}
+.setup-form .ant-form-item-label > label {
+  min-height: 0;
+  font-weight: 600;
+}
+.setup-form .ant-select,
+.setup-form .ant-input,
+.setup-form .ant-picker,
+.setup-form .ant-input-number {
+  min-height: 48px;
+}
+.setup-form .ant-input-number-input {
+  min-width: 0;
+  height: 46px;
+}
+.ant-modal-title,
+.ant-modal-confirm-title,
+.ant-picker-header-view {
+  font-family: "Prompt", "Sarabun", sans-serif;
+}
+.ant-modal-body > .ant-form > .ant-btn {
+  width: 100%;
+}
+.ant-modal .ant-modal-close {
+  min-width: 44px;
+  min-height: 44px;
+}
+.ant-select-item-option {
+  min-height: 44px;
+  align-items: center;
+}
+.ant-select-item-option-content {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.app-feedback {
+  margin-bottom: 18px;
+}
+.ant-select-input {
+  min-height: 0;
+}
+.ant-picker-input > input {
+  min-height: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+}
+.ant-picker-input > input:focus-visible {
+  outline: none;
+}
+.ant-picker-dropdown {
+  max-width: calc(100vw - 16px);
+}
+@media (max-width: 767px) {
+  .courtside-picker-popup {
+    left: 8px !important;
+  }
+}
 * {
   box-sizing: border-box;
 }
@@ -51,12 +122,12 @@ body {
     radial-gradient(ellipse at 95% 0%, #e0f4eb 0, transparent 45%),
     radial-gradient(ellipse at 10% 90%, #edf0ff 0, transparent 45%);
 }
-button,
-input,
-select {
+button:not([class*="ant-"]),
+input:not([class*="ant-"]):not(.ant-picker input),
+select:not([class*="ant-"]) {
   font: inherit;
 }
-button {
+button:not([class*="ant-"]) {
   cursor: pointer;
   min-height: 44px;
   border: 0;
@@ -64,14 +135,14 @@ button {
   font-weight: 600;
   padding: 10px 16px;
 }
-button:disabled {
+button:not([class*="ant-"]):disabled {
   cursor: default;
   opacity: 0.5;
 }
-button:focus-visible,
+button:not([class*="ant-"]):focus-visible,
 a:focus-visible,
-input:focus-visible,
-select:focus-visible {
+input:not([class*="ant-"]):not(.ant-picker input):focus-visible,
+select:not([class*="ant-"]):focus-visible {
   outline: 3px solid #1c71ff;
   outline-offset: 3px;
 }
@@ -89,7 +160,7 @@ h5,
 h6,
 .brand strong,
 .eyebrow,
-thead th,
+.app-shell thead th,
 .score-ring strong {
   font-family: "Prompt", "Sarabun", sans-serif;
 }
@@ -118,8 +189,8 @@ label {
   display: grid;
   gap: 7px;
 }
-input,
-select {
+input:not([class*="ant-"]):not(.ant-picker input),
+select:not([class*="ant-"]) {
   min-width: 0;
   max-width: 100%;
   min-height: 44px;
@@ -340,13 +411,13 @@ hr {
 .play-settings {
   border-top: 4px solid #a5d9bd;
 }
-.play-settings .config-grid label {
+.play-settings .config-grid > .ant-form-item {
   padding: 11px;
   border-radius: 15px;
   background: #f5f9fc;
   gap: 9px;
 }
-.config-grid input,
+.config-grid input:not([class*="ant-"]):not(.ant-picker input),
 .config-grid select {
   display: block;
   min-inline-size: 0;
@@ -383,10 +454,10 @@ hr {
   .setup-layout .page-title > div {
     min-width: 0;
   }
-  .play-settings .config-grid label {
+  .play-settings .config-grid > .ant-form-item {
     padding: 7px;
   }
-  .config-grid input,
+  .config-grid input:not([class*="ant-"]):not(.ant-picker input),
   .config-grid select {
     padding: 9px 6px;
     font-size: 14px;
@@ -702,24 +773,24 @@ hr {
 .schedule-table {
   overflow: auto;
 }
-table {
+.app-shell table {
   width: 100%;
   border-collapse: collapse;
   font-size: 11px;
   table-layout: fixed;
 }
-th,
-td {
+.app-shell th,
+.app-shell td {
   padding: 11px 7px;
   border-bottom: 1px solid #e7edf6;
   overflow-wrap: anywhere;
   text-align: center;
 }
-thead {
+.app-shell thead {
   background: #eef4fb;
   color: #48658c;
 }
-thead th:first-child {
+.app-shell thead th:first-child {
   width: 102px;
 }
 .heading-1 {
@@ -749,16 +820,16 @@ thead th:first-child {
   color: #075fde;
   font-size: 12px;
 }
-td {
+.app-shell td {
   line-height: 1.7;
 }
-td:last-child {
+.app-shell td:last-child {
   color: #4c6281;
 }
 .current-row {
   background: #f5f9ff;
 }
-tbody th small {
+.app-shell tbody th small {
   font-size: 9px;
   margin-top: 5px;
 }
@@ -855,10 +926,10 @@ tbody th small {
   .setup-help {
     padding: 20px;
   }
-  table {
+  .app-shell table {
     font-size: 10px;
   }
-  thead th:first-child {
+  .app-shell thead th:first-child {
     width: 76px;
   }
 }

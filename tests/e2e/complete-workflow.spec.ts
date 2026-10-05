@@ -1,3 +1,4 @@
+import { choose, autoConfirm } from "./helpers";
 import { test, expect } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import { seedPlayers, savedSession } from "./helpers";
@@ -8,7 +9,7 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
   context,
 }, info) => {
   test.setTimeout(90000);
-  page.on("dialog", (dialog) => dialog.accept());
+  await autoConfirm(page);
   await seedPlayers(page);
   await page.getByRole("button", { name: "เลือกทั้งหมด", exact: true }).click();
   await page.getByRole("button", { name: "✧ สร้างตาราง", exact: true }).click();
@@ -94,9 +95,11 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
     .locator(".round-tabs")
     .getByRole("button", { name: "รอบ 4", exact: true })
     .click();
-  await page
-    .getByLabel("สถานะ ผู้เล่น 1", { exact: true })
-    .selectOption("PAUSED");
+  await choose(
+    page,
+    page.getByLabel("สถานะ ผู้เล่น 1", { exact: true }),
+    "PAUSED",
+  );
   await expect(
     page.getByText("ปรับสถานะและจัดรอบที่เหลือใหม่แล้ว", { exact: true }),
   ).toBeVisible();
@@ -110,9 +113,9 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
     .click();
   await page.getByLabel("ชื่อผู้เล่น").fill("ผู้เล่นเข้าช้าชื่อยาวทดสอบ");
   await page.getByRole("button", { name: "บันทึกผู้เล่น" }).click();
-  await page
-    .getByLabel("ผู้เล่นที่มาทีหลัง")
-    .selectOption({ label: "ผู้เล่นเข้าช้าชื่อยาวทดสอบ" });
+  await choose(page, page.getByLabel("ผู้เล่นที่มาทีหลัง"), {
+    label: "ผู้เล่นเข้าช้าชื่อยาวทดสอบ",
+  });
   await page.getByRole("button", { name: "เพิ่มเข้ารอบที่เลือก" }).click();
   await expect(
     page.getByText("เพิ่มผู้เล่นตั้งแต่รอบที่เลือกแล้ว", { exact: true }),
@@ -128,9 +131,11 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
     .locator(".round-tabs")
     .getByRole("button", { name: "รอบ 6", exact: true })
     .click();
-  await page
-    .getByLabel("สถานะ ผู้เล่น 1", { exact: true })
-    .selectOption("ACTIVE");
+  await choose(
+    page,
+    page.getByLabel("สถานะ ผู้เล่น 1", { exact: true }),
+    "ACTIVE",
+  );
   await expect(
     page.getByText("ปรับสถานะและจัดรอบที่เหลือใหม่แล้ว", { exact: true }),
   ).toBeVisible();
@@ -211,7 +216,7 @@ test("desktop dragging, locked pair control and full-block reset", async ({
   page,
 }, info) => {
   test.skip(info.project.name !== "desktop");
-  page.on("dialog", (dialog) => dialog.accept());
+  await autoConfirm(page);
   await seedPlayers(page);
   await page.getByRole("button", { name: "เลือกทั้งหมด", exact: true }).click();
   await page.getByRole("button", { name: "✧ สร้างตาราง", exact: true }).click();
@@ -237,12 +242,12 @@ test("desktop dragging, locked pair control and full-block reset", async ({
   );
   const nameA = s.playerProfiles![a].name,
     nameB = s.playerProfiles![b].name;
-  await page.getByLabel(`คู่ล็อก ${nameA}`, { exact: true }).selectOption(b);
+  await choose(page, page.getByLabel(`คู่ล็อก ${nameA}`, { exact: true }), b);
   await expect(
     page.getByText("ล็อกคู่และจัดรอบที่เหลือใหม่แล้ว", { exact: true }),
   ).toBeVisible();
   expect((await savedSession(page)).sessionPlayers[a].fixedPartnerId).toBe(b);
-  await page.getByLabel(`คู่ล็อก ${nameA}`, { exact: true }).selectOption("");
+  await choose(page, page.getByLabel(`คู่ล็อก ${nameA}`, { exact: true }), "");
   await expect(page.getByText("ปลดล็อกคู่แล้ว", { exact: true })).toBeVisible();
   await page.getByText("เพิ่มช่วงเล่นต่อ", { exact: true }).click();
   await page
@@ -252,5 +257,7 @@ test("desktop dragging, locked pair control and full-block reset", async ({
     page.getByText("เพิ่มช่วงเล่นต่อแล้ว", { exact: true }),
   ).toBeVisible();
   expect((await savedSession(page)).blocks).toHaveLength(2);
-  await expect(page.getByLabel("ช่วงเล่น")).toHaveValue("1");
+  await expect(page.locator(".block-toolbar .ant-select")).toContainText(
+    "ช่วง 2",
+  );
 });

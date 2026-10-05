@@ -1,3 +1,4 @@
+import { choose, autoConfirm } from "./helpers";
 import { test, expect } from "@playwright/test";
 
 test("play settings controls stay inside separate touch fields", async ({
@@ -13,7 +14,7 @@ test("play settings controls stay inside separate touch fields", async ({
   ).toContain("Prompt");
   expect(
     await page
-      .locator(".config-grid select")
+      .locator(".config-grid .ant-select")
       .first()
       .evaluate((el) => getComputedStyle(el).fontFamily),
   ).toContain("Sarabun");
@@ -31,24 +32,26 @@ test("play settings controls stay inside separate touch fields", async ({
   for (const size of sizes) {
     await page.setViewportSize(size);
     const layout = await page.locator(".config-grid").evaluate((grid) => {
-      const fields = [...grid.querySelectorAll("label")].map((label) => {
-        const field = label.getBoundingClientRect();
-        const control = label
-          .querySelector("input,select")!
-          .getBoundingClientRect();
-        return {
-          field: {
-            left: field.left,
-            right: field.right,
-            top: field.top,
-            bottom: field.bottom,
-          },
-          contained:
-            control.left >= field.left && control.right <= field.right + 1,
-          width: control.width,
-          height: control.height,
-        };
-      });
+      const fields = [...grid.querySelectorAll(":scope > .ant-form-item")].map(
+        (label) => {
+          const field = label.getBoundingClientRect();
+          const control = label
+          .querySelector(".ant-select,.ant-input-number,.ant-picker,input")!
+            .getBoundingClientRect();
+          return {
+            field: {
+              left: field.left,
+              right: field.right,
+              top: field.top,
+              bottom: field.bottom,
+            },
+            contained:
+              control.left >= field.left && control.right <= field.right + 1,
+            width: control.width,
+            height: control.height,
+          };
+        },
+      );
       return {
         fields,
         columns: getComputedStyle(grid).gridTemplateColumns.split(" ").length,
@@ -73,11 +76,14 @@ test("play settings controls stay inside separate touch fields", async ({
         ).toBe(true);
       }
     }
-    await page.getByRole("combobox", { name: /ระยะเวลา/ }).selectOption("90");
+    await choose(page, page.getByRole("combobox", { name: /ระยะเวลา/ }), "90");
     await expect(page.getByLabel("จำนวนรอบ", { exact: true })).toHaveValue("9");
-    await page.getByRole("combobox", { name: /สนาม/ }).selectOption("1");
-    await expect(page.getByRole("combobox", { name: /สนาม/ })).toHaveValue("1");
+    await choose(page, page.getByRole("combobox", { name: /สนาม/ }), "1");
+    await expect(page.locator(".config-grid .ant-select").nth(1)).toContainText(
+      "1 สนาม",
+    );
   }
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
     path: `test-results/${info.project.name}-setup.png`,
     fullPage: true,

@@ -31,6 +31,11 @@ The simulation matrix runs 100 seeded ten-round schedules for seven gender distr
 
 ## Architecture
 
+UI controls use Ant Design 6 with a Thai locale and the local Prompt/Sarabun fonts.
+Select dropdowns, setup/player forms, confirmation dialogs and feedback are
+themed through ConfigProvider. Their code is bundled and precached for offline
+use. Court presentation and PNG export remain independent of the component library.
+
 - `src/domain/models`: profile, session, availability and schedule types.
 - `src/domain/pairing`: deterministic, DOM-free hard-rule validation, scoring and full-block optimization.
 - `src/data`: versioned IndexedDB database and repositories.

@@ -1,5 +1,39 @@
 import type { Session } from "../../src/domain/models";
 import { expect } from "@playwright/test";
+import type { Page, Locator } from "@playwright/test";
+
+export async function choose(
+  page: Page,
+  control: Locator,
+  choice: string | { label: string },
+) {
+  await control
+    .locator(
+      'xpath=ancestor::*[contains(concat(" ", normalize-space(@class), " "), " ant-select ")][1]',
+    )
+    .click();
+  const popup = page.locator(".ant-select-dropdown:visible");
+  await expect(popup).toBeVisible();
+  const bounds = await popup.boundingBox();
+  const viewport = page.viewportSize()!;
+  expect(bounds!.x).toBeGreaterThanOrEqual(0);
+  expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width + 1);
+  if (typeof choice === "string")
+    await popup.locator(`[data-option-value="${choice}"]`).click();
+  else
+    await popup
+      .getByRole("option", { name: choice.label, exact: true })
+      .click();
+  await expect(popup).toBeHidden();
+}
+export async function autoConfirm(page: Page) {
+  await page.addLocatorHandler(
+    page.getByRole("dialog").filter({ hasText: "ยืนยันการเปลี่ยนแปลง" }),
+    async (dialog) => {
+      await dialog.getByRole("button", { name: "ยืนยัน", exact: true }).click();
+    },
+  );
+}
 export async function savedSession(
   page: import("@playwright/test").Page,
 ): Promise<Session> {

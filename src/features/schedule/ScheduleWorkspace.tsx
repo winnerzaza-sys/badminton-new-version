@@ -1,5 +1,7 @@
 import { AppSelect } from "../../components/AppSelect";
-import { Alert } from "antd";
+import { Alert, Modal } from "antd";
+import { CourtNameFields } from "../../components/CourtNameFields";
+import { courtName, normalizeCourtNames } from "../../domain/models/courts";
 import { useEffect, useState } from "react";
 import type { RoundSchedule } from "../../domain/models";
 import type { useBadminton } from "../../hooks/useBadminton";
@@ -124,6 +126,8 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
     [duration, setDuration] = useState(60),
     [courts, setCourts] = useState<1 | 2>(2),
     [rounds, setRounds] = useState(6);
+  const [namingCourts, setNamingCourts] = useState(false),
+    [courtNames, setCourtNames] = useState<string[]>([]);
   useEffect(() => {
     setPicked(undefined);
   }, [page, roundIndex, blockIndex, session?.id, block?.updatedAt]);
@@ -218,7 +222,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
     <div className="court-grid">
       {current.matches.map((m) => (
         <article className={`court court-${m.court}`} key={m.court}>
-          <h3>สนาม {m.court}</h3>
+          <h3>{courtName(block.courtNames, m.court)}</h3>
           {[m.teamA, m.teamB].map((team, i) => (
             <div className="team-wrap" key={i}>
               {i === 1 && <span className="versus">VS</span>}
@@ -284,6 +288,18 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
           </AppSelect>
         </label>
         <div className="toolbar">
+          {!readOnly && (
+            <button
+              className="secondary"
+              disabled={busy}
+              onClick={() => {
+                setCourtNames(normalizeCourtNames(block.courtNames));
+                setNamingCourts(true);
+              }}
+            >
+              แก้ไขชื่อสนาม
+            </button>
+          )}
           <button
             className={page === "schedule" ? "primary" : "secondary"}
             onClick={() => setPage("schedule")}
@@ -442,7 +458,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                       <th>รอบ / เวลา</th>
                       {Array.from({ length: block.courtCount }, (_, i) => (
                         <th className={`heading-${i + 1}`} key={i}>
-                          สนาม {i + 1}
+                          {courtName(block.courtNames, i + 1)}
                         </th>
                       ))}
                       <th className="heading-rest">พัก</th>
@@ -528,7 +544,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                         className={`mobile-match court-${m.court}`}
                         key={m.court}
                       >
-                        <strong>สนาม {m.court}</strong>
+                        <strong>{courtName(block.courtNames, m.court)}</strong>
                         <span>
                           {m.teamA.playerIds.map(name).join(" + ")} <b>vs</b>{" "}
                           {m.teamB.playerIds.map(name).join(" + ")}
@@ -732,6 +748,28 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
           </details>
         </section>
       )}
+      <Modal
+        title="แก้ไขชื่อสนาม"
+        open={namingCourts}
+        okText="บันทึกชื่อสนาม"
+        cancelText="ยกเลิก"
+        confirmLoading={busy}
+        cancelButtonProps={{ disabled: busy }}
+        closable={!busy}
+        mask={{ closable: false }}
+        onCancel={() => setNamingCourts(false)}
+        onOk={async () => {
+          if (await app.renameCourts(courtNames)) setNamingCourts(false);
+        }}
+      >
+        <CourtNameFields
+          courtCount={block.courtCount}
+          names={courtNames}
+          onChange={setCourtNames}
+          disabled={busy}
+        />
+        <p className="muted">เว้นว่างเพื่อใช้ชื่อสนามเดิม เช่น สนาม 1</p>
+      </Modal>
     </main>
   );
 }

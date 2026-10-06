@@ -4,6 +4,7 @@ import type {
   PlayerProfile,
 } from "../../domain/models";
 import { sessionProfiles, projectBlock } from "../schedule/service";
+import { courtName } from "../../domain/models/courts";
 export const EXPORT_WIDTH = 1080;
 const clock = (value?: string) =>
   value
@@ -155,7 +156,12 @@ export function renderShareCanvas(
       ctx.fillRect(x + 3, y + 4, width - 6, height - 8);
       ctx.fillStyle = rest ? "#255bab" : index === 0 ? "#17663e" : "#a72c4d";
       ctx.font = font(26, true);
-      ctx.fillText(rest ? "พัก" : `สนาม ${index + 1}`, x + width / 2, y + 39);
+      ctx.fillText(
+        rest ? "พัก" : courtName(block.courtNames, index + 1),
+        x + width / 2,
+        y + 39,
+        width - 24,
+      );
       ctx.fillStyle = "#183249";
       ctx.font = font(31);
       lines.forEach((line, i) => {

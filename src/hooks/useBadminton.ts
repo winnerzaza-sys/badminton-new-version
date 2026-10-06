@@ -1,6 +1,7 @@
 import { App as AntApp } from "antd";
 import { useEffect, useState } from "react";
 import { hydrateSession } from "../features/session/hydrate";
+import { normalizeCourtNames } from "../domain/models/courts";
 import type {
   PlayerProfile,
   Session,
@@ -356,6 +357,16 @@ export function useBadminton() {
       return next;
     }, success);
   }
+  function renameCourts(courtNames: string[]) {
+    return changeBlock(
+      (_session, current) => ({
+        ...current,
+        courtNames: normalizeCourtNames(courtNames),
+        updatedAt: new Date().toISOString(),
+      }),
+      "บันทึกชื่อสนามแล้ว",
+    );
+  }
   async function swap(a: string, b: string) {
     if (!session || !block || busy) return;
     try {
@@ -487,6 +498,7 @@ export function useBadminton() {
           startTime,
           durationMinutes: duration,
           courtCount: courts,
+          courtNames: last.courtNames,
           pointsPerGame: last.pointsPerGame,
           plannedRounds: rounds,
         },
@@ -538,6 +550,7 @@ export function useBadminton() {
     lock,
     complete,
     appendBlock,
+    renameCourts,
     players,
     session,
     page,

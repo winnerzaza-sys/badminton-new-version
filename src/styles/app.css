@@ -1637,6 +1637,19 @@ progress::-moz-progress-bar {
   min-width: 0;
   text-align: left;
 }
+.court-name-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.court-name-fields .ant-input {
+  min-height: 44px;
+}
+.court h3,
+.mobile-match strong {
+  overflow-wrap: anywhere;
+}
 /* ==========================================================================
    Glass UI (design_handoff_glass_ui). Overrides the earlier flat skin; layout
    structure above is kept, only surfaces, navigation and the Session page change.

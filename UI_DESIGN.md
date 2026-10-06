@@ -61,6 +61,12 @@ Show:
 - Player directory shortcut
 
 ## New Session / Schedule Setup
+
+Court display names can be edited in setup (e.g. B5/B6), or through
+"แก้ไขชื่อสนาม" in an active schedule block. Names appear in court cards,
+schedule tables, mobile round lists and PNG exports. Empty names and older
+records fall back to สนาม 1/สนาม 2. Each block saves its own names; added
+blocks inherit the last block's names. Completed sessions remain read-only.
 Fields:
 - date
 - start/end time

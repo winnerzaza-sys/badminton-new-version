@@ -5,11 +5,13 @@ import {
   type ScheduleBlock,
 } from "../../domain/models";
 import { generateSchedule } from "../../domain/pairing/engine";
+import { normalizeCourtNames } from "../../domain/models/courts";
 export interface SessionConfig {
   date: string;
   startTime: string;
   durationMinutes: number;
   courtCount: 1 | 2;
+  courtNames?: string[];
   pointsPerGame: number;
   plannedRounds: number;
 }
@@ -23,6 +25,7 @@ export const defaultConfig = (): SessionConfig => ({
   startTime: "17:00",
   durationMinutes: 60,
   courtCount: 2,
+  courtNames: normalizeCourtNames(),
   pointsPerGame: 21,
   plannedRounds: 6,
 });
@@ -100,6 +103,7 @@ export function generateBlock(
     durationMinutes: config.durationMinutes,
     courtCount: config.courtCount,
     pointsPerGame: config.pointsPerGame,
+    courtNames: normalizeCourtNames(config.courtNames),
     plannedRounds: config.plannedRounds,
     rounds,
     originalGeneratedRounds: structuredClone(rounds),

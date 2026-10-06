@@ -3,6 +3,7 @@ import { Button, DatePicker, Form, Input, InputNumber } from "antd";
 import dayjs from "dayjs";
 import { AppSelect } from "../../components/AppSelect";
 import type { SessionConfig } from "./service";
+import { CourtNameFields } from "../../components/CourtNameFields";
 
 export function PlaySettings({
   config,
@@ -119,6 +120,14 @@ export function PlaySettings({
             <InputNumber min={1} max={30} precision={0} aria-label="จำนวนรอบ" />
           </Form.Item>
         </div>
+        <CourtNameFields
+          courtCount={config.courtCount}
+          names={config.courtNames}
+          disabled={busy}
+          onChange={(courtNames) =>
+            setConfig((current) => ({ ...current, courtNames }))
+          }
+        />
       </section>
       {children}
       <div className="generate-footer">

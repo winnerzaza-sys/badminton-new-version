@@ -53,6 +53,7 @@ export interface ScheduleBlock {
   startTime: string;
   durationMinutes: number;
   courtCount: 1 | 2;
+  courtNames?: string[];
   pointsPerGame: number;
   plannedRounds: number;
   rounds: RoundSchedule[];

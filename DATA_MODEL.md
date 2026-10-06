@@ -62,6 +62,7 @@ export interface ScheduleBlock {
   startTime: string;
   durationMinutes: number;
   courtCount: 1 | 2;
+  courtNames?: string[]; // Display names by court number, e.g. ["B5", "B6"].
   pointsPerGame: number;
   plannedRounds: number;
   rounds: RoundSchedule[];

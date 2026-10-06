@@ -22,9 +22,10 @@ for offline use. PNG export explicitly loads both font families before measuring
 
 The user requested a cuter badminton theme after the initial release. Keep the
 reference's layout hierarchy, blue primary actions and green/pink/blue court/rest
-semantics, with a soft blue/mint background, rounder cards and a small decorative
+semantics, with a solid light gray (#f3f4f6) app/sidebar background, rounder cards and a small decorative
 shuttle/racket/court illustration. The illustration is local SVG and has no
-interaction or accessible meaning. Export composition remains unchanged.
+interaction or accessible meaning. App surfaces and buttons use flat colors without
+gradients, as requested in October 2026. Export composition remains unchanged.
 
 Play settings use two columns across 768–1199px, rather than the initial three,
 to allow comfortable tablet controls. Labels and controls must allow shrinking

@@ -109,6 +109,9 @@
 .ant-picker-dropdown {
   max-width: calc(100vw - 16px);
 }
+.courtside-time-popup .ant-picker-ok .ant-btn {
+  min-height: 44px;
+}
 @media (max-width: 767px) {
   .courtside-picker-popup {
     left: 8px !important;
@@ -1625,17 +1628,6 @@ progress::-moz-progress-bar {
   min-height: 9.5px;
   padding: 0;
   margin: 0;
-}
-.setup-form input[type="time"] {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  padding-inline: 8px;
-}
-.setup-form input[type="time"]::-webkit-date-and-time-value {
-  min-width: 0;
-  text-align: left;
 }
 .court-name-fields {
   display: grid;

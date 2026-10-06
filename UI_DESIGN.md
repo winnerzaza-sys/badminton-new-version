@@ -5,9 +5,10 @@ Ant Design controls: all dropdowns use Select, with search for larger option lis
 Fixed-partner dropdowns disable typing/search and select directly from the roster.
 Body text and controls use a minimum 16px, retaining heading sizes and decorative
 icons. Today's roster checkboxes are 9.5px (50% of the original 19px), with the
-whole row remaining a touch target and flexible name space. The native start-time
-input stays within its gray field; the operating system controls its picker popup.
-Play setup uses a vertical Form, DatePicker, a native time input and InputNumber; the player
+whole row remaining a touch target and flexible name space. Start time uses Ant
+Design TimePicker with 24-hour HH:mm, touch-friendly time rows and explicit
+confirmation after choosing hours/minutes. The picker popup stays within the viewport.
+Play setup uses a vertical Form, DatePicker, TimePicker and InputNumber; the player
 editor uses Modal/Form/Input/Select. Confirmation dialogs await an explicit
 confirm/cancel result before persistence. Errors, warnings and persistent success
 feedback use Alert; saving a player also shows a message. Keep native court cards,
@@ -29,7 +30,7 @@ gradients, as requested in October 2026. Export composition remains unchanged.
 
 Play settings use two columns across 768–1199px, rather than the initial three,
 to allow comfortable tablet controls. Labels and controls must allow shrinking
-inside their grid tracks, including native Safari date/time inputs. Browser checks
+inside their grid tracks, including the date/time pickers. Browser checks
 cover 768, 820, 1024 and 1180px, as well as mobile, desktop and mobile WebKit.
 
 ## Visual Direction

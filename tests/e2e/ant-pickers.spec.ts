@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("Ant calendar and native time input fit the viewport and persist local values", async ({
+test("Ant date/time pickers fit the viewport and persist local values", async ({
   page,
 }, info) => {
   await page.goto("/");
@@ -23,11 +23,28 @@ test("Ant calendar and native time input fit the viewport and persist local valu
   await expect(date).toHaveValue(`15/${month}/${year}`);
   await expect(popup).toBeHidden();
   const time = page.getByLabel("เริ่มเล่น", { exact: true });
-  await expect(time).toHaveAttribute("type", "time");
-  await time.fill("18:30");
-  await page
-    .getByRole("heading", { name: "ตั้งค่าการเล่น", exact: true })
+  await time.click();
+  await expect(popup).toBeVisible();
+  const timeBounds = await popup.boundingBox();
+  expect(timeBounds!.x).toBeGreaterThanOrEqual(0);
+  expect(timeBounds!.x + timeBounds!.width).toBeLessThanOrEqual(
+    page.viewportSize()!.width + 1,
+  );
+  await popup
+    .locator(".ant-picker-time-panel-column")
+    .nth(0)
+    .getByText("18", { exact: true })
     .click();
+  await expect(popup).toBeVisible();
+  await popup
+    .locator(".ant-picker-time-panel-column")
+    .nth(1)
+    .getByText("30", { exact: true })
+    .click();
+  await page.screenshot({
+    path: `test-results/${info.project.name}-timepicker.png`,
+  });
+  await popup.getByRole("button", { name: "ตกลง", exact: true }).click();
   await expect(time).toHaveValue("18:30");
   await expect(popup).toBeHidden();
   await page.reload();

@@ -11,7 +11,7 @@ createRoot(document.getElementById("root")!).render(
       locale={thTH}
       theme={{
         components: {
-          DatePicker: { cellWidth: 36, cellHeight: 32 },
+          DatePicker: { cellWidth: 36, cellHeight: 32, timeCellHeight: 44 },
         },
         token: {
           colorPrimary: "#1763d8",

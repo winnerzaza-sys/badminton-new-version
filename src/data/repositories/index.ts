@@ -15,6 +15,8 @@ export function repositories(db: BadmintonDatabase = database) {
     sessions: {
       list: () => db.sessions.orderBy("createdAt").reverse().toArray(),
       save: (session: Session) => db.sessions.put(session),
+      remove: (ids: string[]) => db.sessions.bulkDelete(ids),
+      restore: (sessions: Session[]) => db.sessions.bulkPut(sessions),
       unfinished: async () =>
         (await db.sessions.orderBy("createdAt").reverse().toArray()).find(
           (s) => s.status !== "COMPLETED",

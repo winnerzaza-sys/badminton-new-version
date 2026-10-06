@@ -5,6 +5,8 @@ import { ScheduleWorkspace } from "./features/schedule/ScheduleWorkspace";
 import { History } from "./features/history/History";
 import { Settings } from "./features/home/Settings";
 import { useBadminton } from "./hooks/useBadminton";
+import { Icon, type IconName } from "./components/Icon";
+import { avatarStyle } from "./utils/avatar";
 const time = (value?: string) =>
   value
     ? new Intl.DateTimeFormat("th-TH", {
@@ -61,33 +63,47 @@ export function App() {
     <>
       {(
         [
-          ["home", "⌂", "สร้างตาราง"],
-          ["schedule", "▤", "ตารางเล่น"],
-          ["adjust", "♢", "ปรับคู่"],
-          ["summary", "▥", "สรุป"],
-          ["history", "◷", "ประวัติ"],
-          ["players", "♧", "ผู้เล่น"],
-          ["settings", "⚙", "ตั้งค่า"],
-        ] as const
-      ).map(([id, icon, label]) => (
-        <button
-          key={id}
-          className={page === id ? "nav-item selected" : "nav-item"}
-          data-nav={id}
-          aria-current={page === id ? "page" : undefined}
-          onClick={() => setPage(id)}
-        >
-          <span aria-hidden="true">{icon}</span>
-          {label}
-        </button>
-      ))}
+          ["schedule", "calendar-days", "ตารางเล่น"],
+          ["history", "history", "Session"],
+          ["players", "users", "ผู้เล่น"],
+          ["summary", "chart-column", "สรุป"],
+          ["settings", "settings", "ตั้งค่า"],
+        ] as [typeof page, IconName, string][]
+      ).map(([id, icon, label]) => {
+        const current =
+          page === id ||
+          (id === "schedule" && ["adjust", "share"].includes(page));
+        return (
+          <button
+            key={id}
+            className={current ? "nav-item selected" : "nav-item"}
+            data-nav={id}
+            aria-current={current ? "page" : undefined}
+            onClick={() => setPage(id)}
+          >
+            <Icon name={icon} />
+            <span>{label}</span>
+          </button>
+        );
+      })}
     </>
   );
+  const newButton = (
+    <button
+      type="button"
+      className="nav-new"
+      aria-label="สร้างตารางใหม่"
+      onClick={app.newSetup}
+    >
+      <Icon name="plus" size={26} />
+    </button>
+  );
   return (
-    <div className="app-shell">
-      <aside className="sidebar">
+    <div
+      className={`app-shell ${page === "history" && app.selectMode ? "selecting" : ""}`}
+    >
+      <aside className="sidebar glass-bar">
         <div className="brand">
-          <span className="shuttle">🏸</span>
           <div>
             <strong>แบดมินตัน</strong>
             <small>Pairing & Schedule</small>
@@ -95,18 +111,13 @@ export function App() {
         </div>
         <nav aria-label="เมนูหลัก">{navigation}</nav>
         <div className="sidebar-context">
-          <span className="status-dot" /> ข้อมูลอยู่ในเครื่อง
-          <p>
-            จัดตารางทั้งช่วงเวลา
-            <br />
-            พร้อมเล่นแม้ไม่มีอินเทอร์เน็ต
-          </p>
+          <span className={`status-dot ${online ? "" : "offline"}`} />
+          ข้อมูลอยู่ในเครื่อง · {online ? "พร้อมใช้งาน" : "ออฟไลน์"}
         </div>
       </aside>
       <div className="workspace">
         <header className="topbar">
           <div className="brand mobile-brand">
-            <span className="shuttle">🏸</span>
             <div>
               <strong>แบดมินตัน</strong>
               <small>Pairing & Schedule</small>
@@ -129,11 +140,18 @@ export function App() {
             {online ? "พร้อมใช้งาน" : "ออฟไลน์"}
           </span>
           <button
+            className="primary topbar-new"
+            type="button"
+            onClick={app.newSetup}
+          >
+            <Icon name="plus" size={18} /> สร้างตารางใหม่
+          </button>
+          <button
             className="mobile-settings secondary"
             aria-label="ตั้งค่า"
             onClick={() => setPage("settings")}
           >
-            ⚙
+            <Icon name="settings" size={22} />
           </button>
         </header>
         {error && editing === undefined && (
@@ -240,7 +258,10 @@ export function App() {
                               )
                             }
                           />
-                          <span className="avatar small">
+                          <span
+                            className="avatar small"
+                            style={avatarStyle(p.id)}
+                          >
                             {p.name.slice(0, 1)}
                           </span>
                           <strong>{p.name}</strong>
@@ -252,7 +273,6 @@ export function App() {
                     </div>
                   ) : (
                     <div className="empty">
-                      <span>🏸</span>
                       <h3>เริ่มจากเพื่อนร่วมสนาม</h3>
                       <p>เพิ่มรายชื่อผู้เล่นครั้งเดียว เก็บไว้ใช้ได้ทุกครั้ง</p>
                       <button
@@ -268,7 +288,6 @@ export function App() {
               </PlaySettings>
             </section>
             <aside className="setup-help panel">
-              <span className="help-icon">🏸</span>
               <h2>พร้อมลงสนาม</h2>
               <p>
                 เกมใกล้เคียงกัน
@@ -286,7 +305,7 @@ export function App() {
               </p>
               <small>ไม่จัดชาย 3 หญิง 1 หรือชายคู่พบหญิงคู่</small>
               <div className="local-note">
-                ◉ เก็บรายชื่อและตาราง
+                เก็บรายชื่อและตาราง
                 <br />
                 ไว้ในเครื่องของคุณ
               </div>
@@ -309,7 +328,9 @@ export function App() {
               {players.length ? (
                 players.map((p) => (
                   <article className="directory-row" key={p.id}>
-                    <span className="avatar small">{p.name.slice(0, 1)}</span>
+                    <span className="avatar small" style={avatarStyle(p.id)}>
+                      {p.name.slice(0, 1)}
+                    </span>
                     <div>
                       <strong>{p.name}</strong>
                       <small>
@@ -353,9 +374,22 @@ export function App() {
         {loaded && page === "history" && <History app={app} />}
         {loaded && page === "settings" && <Settings app={app} />}
       </div>
-      <nav className="bottom-nav" aria-label="เมนูมือถือ">
-        {navigation}
-      </nav>
+      <div className="floating-nav">
+        <nav className="bottom-nav glass-bar" aria-label="เมนูมือถือ">
+          {navigation}
+        </nav>
+        {newButton}
+      </div>
+      {app.toast && (
+        <div className="undo-toast" role="status">
+          <span>{app.toast}</span>
+          {app.undoSnapshot && (
+            <button type="button" onClick={app.undoDelete}>
+              เลิกทำ
+            </button>
+          )}
+        </div>
+      )}
       <Modal
         open={editing !== undefined}
         title={

@@ -202,9 +202,12 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
   await page.reload();
   const historyNav = page
     .locator("nav:visible")
-    .getByRole("button", { name: "ประวัติ", exact: true });
+    .getByRole("button", { name: "Session", exact: true });
   await historyNav.click();
-  await page.getByRole("button", { name: "ดูตารางและแชร์ →" }).click();
+  await page
+    .getByRole("button", { name: /^เปิด( Session)?/ })
+    .first()
+    .click();
   await expect(page.getByText(/จบเซสชันแล้ว/)).toBeVisible();
   await expect(
     page.getByRole("button", { name: "จบเซสชัน", exact: true }),

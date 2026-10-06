@@ -63,6 +63,25 @@ export function useBadminton() {
     [playerName, setPlayerName] = useState(""),
     [gender, setGender] = useState<"M" | "F">("M");
   const [online, setOnline] = useState(navigator.onLine);
+  const [selectMode, setSelectMode] = useState(false),
+    [selectedSessionIds, setSelectedSessionIds] = useState<string[]>([]),
+    [sessionFilter, setSessionFilter] = useState<"all" | "open" | "done">(
+      "all",
+    ),
+    [pendingDelete, setPendingDelete] = useState<{
+      ids: string[];
+      hasActive: boolean;
+    } | null>(null),
+    [undoSnapshot, setUndoSnapshot] = useState<Session[] | null>(null),
+    [toast, setToast] = useState("");
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => {
+      setToast("");
+      setUndoSnapshot(null);
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, [toast]);
   useEffect(() => {
     const change = () => setOnline(navigator.onLine);
     window.addEventListener("online", change);
@@ -218,6 +237,51 @@ export function useBadminton() {
     setNotice("");
     setError("");
     setPage(value.blocks.length ? "schedule" : "home");
+  }
+  function requestDelete(ids: string[]) {
+    if (!ids.length) return;
+    setPendingDelete({
+      ids,
+      hasActive: sessions.some(
+        (s) => ids.includes(s.id) && s.status !== "COMPLETED",
+      ),
+    });
+  }
+  // Deletes immediately and keeps a snapshot so "เลิกทำ" can put the records back.
+  async function deleteSessions(ids: string[]) {
+    const snapshot = sessions.filter((s) => ids.includes(s.id));
+    setPendingDelete(null);
+    if (!snapshot.length) return;
+    try {
+      await repo.sessions.remove(ids);
+      setSessions(
+        (await repo.sessions.list()).map((s) => hydrateSession(s, players)),
+      );
+      if (session && ids.includes(session.id)) {
+        setSession(undefined);
+        setNotice("");
+        setPage("home");
+      }
+      setSelectedSessionIds([]);
+      setSelectMode(false);
+      setUndoSnapshot(snapshot);
+      setToast(`ลบ ${snapshot.length} Session แล้ว`);
+    } catch {
+      setError("ลบ Session ไม่ได้ กรุณาลองอีกครั้ง");
+    }
+  }
+  async function undoDelete() {
+    if (!undoSnapshot) return;
+    try {
+      await repo.sessions.restore(undoSnapshot);
+      setSessions(
+        (await repo.sessions.list()).map((s) => hydrateSession(s, players)),
+      );
+      setUndoSnapshot(null);
+      setToast("");
+    } catch {
+      setError("กู้คืน Session ไม่ได้ กรุณาลองอีกครั้ง");
+    }
   }
   function setField<K extends keyof SessionConfig>(
     key: K,
@@ -447,6 +511,19 @@ export function useBadminton() {
   }
   return {
     newSetup,
+    selectMode,
+    setSelectMode,
+    selectedSessionIds,
+    setSelectedSessionIds,
+    sessionFilter,
+    setSessionFilter,
+    pendingDelete,
+    setPendingDelete,
+    requestDelete,
+    deleteSessions,
+    undoDelete,
+    undoSnapshot,
+    toast,
     sessions,
     blockIndex,
     setBlockIndex,

@@ -6,6 +6,7 @@ import type { useBadminton } from "../../hooks/useBadminton";
 import { projectBlock } from "./service";
 import { SharePreview } from "../share/SharePreview";
 import { formatTime } from "../../utils/format";
+import { avatarStyle } from "../../utils/avatar";
 type Controller = ReturnType<typeof useBadminton>;
 export function SummaryPanel({ app }: { app: Controller }) {
   const { session, block, name } = app;
@@ -130,7 +131,6 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
     return (
       <main>
         <section className="empty panel">
-          <span>🏸</span>
           <h1>ยังไม่ได้เปิดตาราง</h1>
           <p>สร้างตารางวันนี้ หรือเปิดเซสชันที่เก็บไว้</p>
           <button className="primary" onClick={() => setPage("home")}>
@@ -170,11 +170,15 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
       session?.playerProfiles?.[id] ?? app.players.find((p) => p.id === id);
     const content = (
       <>
-        <span className="avatar">{name(id).slice(0, 1)}</span>
+        <span className="avatar" style={avatarStyle(id)}>
+          {name(id).slice(0, 1)}
+        </span>
         <strong>{name(id)}</strong>
         <small>
           {profile?.gender === "M" ? "ชาย" : "หญิง"}
-          {round.fixedPairs?.some((pair) => pair.includes(id)) ? " · 🔒" : ""}
+          {round.fixedPairs?.some((pair) => pair.includes(id))
+            ? " · ล็อกคู่"
+            : ""}
         </small>
       </>
     );
@@ -214,7 +218,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
     <div className="court-grid">
       {current.matches.map((m) => (
         <article className={`court court-${m.court}`} key={m.court}>
-          <h3>▤ สนาม {m.court}</h3>
+          <h3>สนาม {m.court}</h3>
           {[m.teamA, m.teamB].map((team, i) => (
             <div className="team-wrap" key={i}>
               {i === 1 && <span className="versus">VS</span>}
@@ -226,7 +230,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
         </article>
       ))}
       <article className="court rest">
-        <h3>☕ พัก ({current.restingPlayerIds.length} คน)</h3>
+        <h3>พัก ({current.restingPlayerIds.length} คน)</h3>
         <div className="rest-players">
           {current.restingPlayerIds.map((id) => token(id, current))}
         </div>
@@ -561,7 +565,9 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
               return (
                 <div className="roster-row" key={id}>
                   <div className="roster-name">
-                    <span className="avatar small">{name(id).slice(0, 1)}</span>
+                    <span className="avatar small" style={avatarStyle(id)}>
+                      {name(id).slice(0, 1)}
+                    </span>
                     <div>
                       <strong>{name(id)}</strong>
                       <small>

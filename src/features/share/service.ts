@@ -3,8 +3,14 @@ import type {
   ScheduleBlock,
   PlayerProfile,
 } from "../../domain/models";
-import { sessionProfiles, projectBlock } from "../schedule/service";
+import {
+  sessionProfiles,
+  projectBlock,
+  blockBaseline,
+} from "../schedule/service";
 import { courtName } from "../../domain/models/courts";
+import { playingStreaks } from "../../domain/pairing/streaks";
+import { REPLAY_PATH } from "../../utils/replay";
 export const EXPORT_WIDTH = 1080;
 const clock = (value?: string) =>
   value
@@ -45,12 +51,14 @@ export function renderShareCanvas(
 ) {
   const canvas = document.createElement("canvas");
   canvas.width = EXPORT_WIDTH;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("อุปกรณ์นี้ไม่รองรับการสร้างภาพ");
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("อุปกรณ์นี้ไม่รองรับการสร้างภาพ");
+  const ctx = context;
   const byId = new Map(
     sessionProfiles(session, profiles).map((p) => [p.id, p.name]),
   );
   const name = (id: string) => byId.get(id) ?? "ไม่พบผู้เล่น";
+  const streaks = playingStreaks(block.rounds, blockBaseline(session, block));
   const columns =
     block.courtCount === 2 ? [110, 330, 330, 246] : [110, 560, 346];
   const xPositions = columns.map(
@@ -58,32 +66,117 @@ export function renderShareCanvas(
   );
   const font = (size: number, bold = false) =>
     `${bold ? "700 " : "400 "}${size}px "${bold ? "Prompt" : "Sarabun"}", sans-serif`;
+  type Part = { text: string; streak?: number };
+  type Line = Part[];
+  const badgeWidth = (count: number) => {
+    ctx.font = font(26);
+    return 40 + ctx.measureText(String(count)).width;
+  };
+  const partWidth = (part: Part): number => {
+    if (part.streak) return badgeWidth(part.streak);
+    ctx.font = font(31);
+    return ctx.measureText(part.text).width;
+  };
+  const lineWidth = (line: Line) =>
+    line.reduce((total, part) => total + partWidth(part), 0);
+  function teamLines(
+    ids: string[],
+    roundNumber: number,
+    width: number,
+  ): Line[] {
+    const lines: Line[] = [];
+    ids.forEach((id, index) => {
+      const count = streaks[roundNumber]?.[id] ?? 0;
+      const badge = count >= 2 ? { text: "", streak: count } : undefined;
+      ctx.font = font(31);
+      const available = width - (badge ? badgeWidth(count) + 8 : 0);
+      ctx.font = font(31);
+      const chunks = wrap(ctx, name(id), available);
+      const playerLines: Line[] = chunks.map((text, i) => [
+        { text },
+        ...(i === chunks.length - 1 && badge ? [{ text: " " }, badge] : []),
+      ]);
+      const last = lines.at(-1);
+      const separator = { text: " + " };
+      if (
+        last &&
+        playerLines.length === 1 &&
+        lineWidth([...last, separator, ...playerLines[0]]) <= width
+      )
+        last.push(separator, ...playerLines[0]);
+      else {
+        // Keep the team separator on the next player's line when two names
+        // cannot fit together; reserve its width rather than shrinking text.
+        if (index > 0) {
+          ctx.font = font(31);
+          const prefixed = wrap(ctx, `+ ${name(id)}`, available);
+          playerLines.splice(
+            0,
+            playerLines.length,
+            ...prefixed.map((text, i) => [
+              { text },
+              ...(i === prefixed.length - 1 && badge
+                ? [{ text: " " }, badge]
+                : []),
+            ]),
+          );
+        }
+        lines.push(...playerLines);
+      }
+    });
+    return lines;
+  }
+  const replay = new Path2D(REPLAY_PATH);
+  function drawBadge(count: number, x: number, baseline: number) {
+    const width = badgeWidth(count);
+    ctx.fillStyle = "#fff0cf";
+    ctx.strokeStyle = "#e8c27a";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(x, baseline - 29, width, 36, 7);
+    ctx.fill();
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(x + 7, baseline - 23);
+    ctx.scale(22 / 24, 22 / 24);
+    ctx.strokeStyle = "#80500b";
+    ctx.lineWidth = 2.3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.stroke(replay);
+    ctx.restore();
+    ctx.font = font(26);
+    ctx.fillStyle = "#80500b";
+    ctx.textAlign = "left";
+    ctx.fillText(String(count), x + 33, baseline);
+  }
   ctx.font = font(31);
   const rows = block.rounds.map((round) => {
     const cells = Array.from({ length: block.courtCount }, (_, index) => {
       const match = round.matches.find((m) => m.court === index + 1);
       return match
         ? [
-            ...wrap(
-              ctx,
-              match.teamA.playerIds.map(name).join(" + "),
+            ...teamLines(
+              match.teamA.playerIds,
+              round.roundNumber,
               columns[index + 1] - 32,
             ),
-            "VS",
-            ...wrap(
-              ctx,
-              match.teamB.playerIds.map(name).join(" + "),
+            [{ text: "VS" }],
+            ...teamLines(
+              match.teamB.playerIds,
+              round.roundNumber,
               columns[index + 1] - 32,
             ),
           ]
-        : ["ไม่ใช้สนาม"];
+        : [[{ text: "ไม่ใช้สนาม" }]];
     });
+    ctx.font = font(31);
     cells.push(
       wrap(
         ctx,
         round.restingPlayerIds.map(name).join(", "),
         columns.at(-1)! - 32,
-      ),
+      ).map((text) => [{ text }]),
     );
     const height = Math.max(
       176,
@@ -105,7 +198,7 @@ export function renderShareCanvas(
     });
   }
   canvas.height =
-    270 +
+    334 +
     rows.reduce((s, row) => s + row.height + 14, 0) +
     110 +
     summaryRows.reduce((s, row) => s + row.height, 0) +
@@ -137,7 +230,14 @@ export function renderShareCanvas(
     180,
   );
   const colors = ["#ddf5e5", "#ffe3ea", "#e4efff"];
-  let y = 254;
+  ctx.fillStyle = "#fff8e9";
+  ctx.fillRect(32, 244, 1016, 54);
+  drawBadge(3, 56, 280);
+  ctx.font = font(25);
+  ctx.fillStyle = "#80500b";
+  ctx.textAlign = "left";
+  ctx.fillText("= เล่นติดกัน 3 รอบ รวมรอบนั้น · แสดงตั้งแต่ 2 รอบ", 126, 280);
+  let y = 318;
   for (const { round, cells, height } of rows) {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(32, y, 1016, height);
@@ -156,6 +256,7 @@ export function renderShareCanvas(
       ctx.fillRect(x + 3, y + 4, width - 6, height - 8);
       ctx.fillStyle = rest ? "#255bab" : index === 0 ? "#17663e" : "#a72c4d";
       ctx.font = font(26, true);
+      ctx.textAlign = "center";
       ctx.fillText(
         rest ? "พัก" : courtName(block.courtNames, index + 1),
         x + width / 2,
@@ -165,7 +266,18 @@ export function renderShareCanvas(
       ctx.fillStyle = "#183249";
       ctx.font = font(31);
       lines.forEach((line, i) => {
-        ctx.fillText(line, x + width / 2, y + 82 + i * 42);
+        let left = x + (width - lineWidth(line)) / 2;
+        for (const part of line) {
+          const baseline = y + 82 + i * 42;
+          if (part.streak) drawBadge(part.streak, left, baseline);
+          else {
+            ctx.fillStyle = "#183249";
+            ctx.font = font(31);
+            ctx.textAlign = "left";
+            ctx.fillText(part.text, left, baseline);
+          }
+          left += partWidth(part);
+        }
       });
     });
     y += height + 14;
@@ -210,13 +322,26 @@ export async function createShareImage(
     ]);
   }
   const canvas = renderShareCanvas(session, block, profiles);
-  const blob = await new Promise<Blob>((resolve, reject) =>
-    canvas.toBlob(
-      (value) =>
-        value ? resolve(value) : reject(new Error("สร้าง PNG ไม่สำเร็จ")),
-      "image/png",
-    ),
-  );
+  const blob = await new Promise<Blob>((resolve, reject) => {
+    // Some browsers defer the asynchronous encoder for detached canvases.
+    // Keep exporting usable when its callback never arrives, including offline.
+    const fallback = setTimeout(() => {
+      try {
+        const encoded = canvas.toDataURL("image/png").split(",")[1];
+        if (!encoded) throw new Error("สร้าง PNG ไม่สำเร็จ");
+        const bytes = Uint8Array.from(atob(encoded), (char) =>
+          char.charCodeAt(0),
+        );
+        resolve(new Blob([bytes], { type: "image/png" }));
+      } catch (error) {
+        reject(error);
+      }
+    }, 1500);
+    canvas.toBlob((value) => {
+      clearTimeout(fallback);
+      value ? resolve(value) : reject(new Error("สร้าง PNG ไม่สำเร็จ"));
+    }, "image/png");
+  });
   return {
     blob,
     width: canvas.width,

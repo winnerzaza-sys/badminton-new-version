@@ -93,7 +93,7 @@ export function SharePreview({
           <img
             className="export-image"
             src={url}
-            alt={`ตารางแบดมินตัน ${block.plannedRounds} รอบ พร้อมสนามและผู้พัก`}
+            alt={`ตารางแบดมินตัน ${block.plannedRounds} รอบ พร้อมสนาม ผู้พัก และจำนวนรอบที่เล่นติดกันตามแผน`}
             width={result?.width}
             height={result?.height}
           />

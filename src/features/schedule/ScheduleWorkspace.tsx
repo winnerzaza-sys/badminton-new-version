@@ -5,7 +5,12 @@ import { courtName, normalizeCourtNames } from "../../domain/models/courts";
 import { useEffect, useState } from "react";
 import type { RoundSchedule } from "../../domain/models";
 import type { useBadminton } from "../../hooks/useBadminton";
-import { projectBlock } from "./service";
+import { blockBaseline, projectBlock } from "./service";
+import { playingStreaks } from "../../domain/pairing/streaks";
+import {
+  PlayingStreak,
+  PlayingStreakLegend,
+} from "../../components/PlayingStreak";
 import { SharePreview } from "../share/SharePreview";
 import { formatTime } from "../../utils/format";
 import { avatarStyle } from "../../utils/avatar";
@@ -154,6 +159,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
   const editing = page === "adjust" && session.status !== "COMPLETED",
     readOnly = session.status === "COMPLETED";
   const current = block.rounds[Math.min(roundIndex, block.rounds.length - 1)];
+  const streaks = playingStreaks(block.rounds, blockBaseline(session, block));
   const projected = projectBlock(session, block),
     lateOptions = app.active.filter((p) => !session.playerIds.includes(p.id));
   async function choose(id: string) {
@@ -177,7 +183,10 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
         <span className="avatar" style={avatarStyle(id)}>
           {name(id).slice(0, 1)}
         </span>
-        <strong>{name(id)}</strong>
+        <span className="scheduled-player-name">
+          <strong>{name(id)}</strong>
+          <PlayingStreak count={streaks[round.roundNumber]?.[id] ?? 0} />
+        </span>
         <small>
           {profile?.gender === "M" ? "ชาย" : "หญิง"}
           {round.fixedPairs?.some((pair) => pair.includes(id))
@@ -217,6 +226,17 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
         {content}
       </button>
     );
+  }
+  function teamNames(ids: string[], round: RoundSchedule) {
+    return ids.map((id, index) => (
+      <span key={id}>
+        {index > 0 && " + "}
+        <span className="scheduled-player-name">
+          <span>{name(id)}</span>
+          <PlayingStreak count={streaks[round.roundNumber]?.[id] ?? 0} />
+        </span>
+      </span>
+    ));
   }
   const cards = (
     <div className="court-grid">
@@ -440,6 +460,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                   </div>
                 </>
               )}
+              <PlayingStreakLegend />
               {cards}
             </section>
             <section className="panel full-schedule">
@@ -451,6 +472,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                     : "บันทึกแล้วในเครื่อง"}
                 </span>
               </div>
+              <PlayingStreakLegend />
               <div className="schedule-table">
                 <table>
                   <thead>
@@ -496,9 +518,9 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                               <td key={court}>
                                 {m ? (
                                   <>
-                                    {m.teamA.playerIds.map(name).join(" + ")}
+                                    {teamNames(m.teamA.playerIds, r)}
                                     <span className="table-vs">vs</span>
-                                    {m.teamB.playerIds.map(name).join(" + ")}
+                                    {teamNames(m.teamB.playerIds, r)}
                                   </>
                                 ) : (
                                   "ไม่ใช้สนาม"
@@ -546,8 +568,8 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                       >
                         <strong>{courtName(block.courtNames, m.court)}</strong>
                         <span>
-                          {m.teamA.playerIds.map(name).join(" + ")} <b>vs</b>{" "}
-                          {m.teamB.playerIds.map(name).join(" + ")}
+                          {teamNames(m.teamA.playerIds, r)} <b>vs</b>{" "}
+                          {teamNames(m.teamB.playerIds, r)}
                         </span>
                       </div>
                     ))}

@@ -81,6 +81,17 @@ Default player selection = selected players from most recent session.
 Allow Select All / Clear Selection / Add Player.
 
 ## Schedule View
+Planned consecutive-play badges use a replay icon plus a count beside each
+playing player's name in selected-round cards, the full schedule table/mobile
+list and the PNG export. Show from two consecutive rounds, including the round
+being displayed. The explanation above each schedule/export uses a sample
+replay badge with count 3. A non-playing round resets the count; the next block
+carries its saved baseline streak. Derive badges from the current plan after
+edits/undo/regeneration, without marking physical games complete or changing
+pairing rules. Amber badges preserve the green/pink/blue court/rest semantics.
+Court headings, round links and gender labels retain their original hue families
+with darker text for accessible contrast. PNG names/badges wrap to fit each column.
+
 Show all planned rounds.
 Each round contains:
 - estimated time

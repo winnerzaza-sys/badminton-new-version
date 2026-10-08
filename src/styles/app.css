@@ -516,7 +516,7 @@ hr {
 }
 .gender {
   font-size: 16px;
-  color: #657693;
+  color: #4c6281;
   margin-left: auto;
   white-space: nowrap;
 }
@@ -1867,15 +1867,15 @@ body {
 }
 .court-1 h3 {
   background: rgba(31, 157, 85, 0.16);
-  color: #167a43;
+  color: #12522f;
 }
 .court-2 h3 {
   background: rgba(214, 69, 93, 0.14);
-  color: #b8304b;
+  color: #8a223e;
 }
 .rest h3 {
   background: transparent;
-  color: #1763d8;
+  color: #174b96;
 }
 .mobile-match {
   border-radius: 16px;
@@ -1950,7 +1950,7 @@ body {
   height: 28px;
   min-height: 28px !important;
   background: rgba(23, 99, 216, 0.12);
-  color: var(--primary);
+  color: #174b96;
 }
 .round-link::after {
   content: "";
@@ -2544,4 +2544,47 @@ body {
   .floating-nav .bottom-nav .nav-item {
     padding: 0 13px;
   }
+}
+
+/* Planned consecutive games: replay badges keep court/rest colors intact. */
+.scheduled-player-name {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  max-width: 100%;
+  vertical-align: middle;
+}
+.playing-streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  border: 1px solid #e8c27a;
+  border-radius: 7px;
+  background: #fff0cf;
+  color: #80500b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.playing-streak svg {
+  flex-shrink: 0;
+}
+.playing-streak-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 16px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fff8e9;
+  color: #80500b;
+  font-size: 16px;
+}
+.playing-streak-legend > span:last-child {
+  min-width: 0;
 }

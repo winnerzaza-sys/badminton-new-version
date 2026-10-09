@@ -5,15 +5,21 @@ import {
   type RoundSchedule,
   type Match,
 } from "../models";
+export interface ValidationOptions {
+  // Explicit manual-edit exception; automatic generation remains strict by default.
+  allowAnyGenderCombination?: boolean;
+}
 export function validateMatch(
   match: Match,
   profiles: PlayerProfile[],
+  options: ValidationOptions = {},
 ): string[] {
   const ids = [...match.teamA.playerIds, ...match.teamB.playerIds];
   if (ids.length !== 4 || new Set(ids).size !== 4)
     return ["สนามต้องมีผู้เล่นไม่ซ้ำกัน 4 คน"];
   const genders = ids.map((id) => profiles.find((p) => p.id === id)?.gender);
   if (genders.some((g) => !g)) return ["ไม่พบข้อมูลผู้เล่น"];
+  if (options.allowAnyGenderCombination) return [];
   const males = genders.filter((g) => g === "M").length;
   if (males === 3) return ["ไม่อนุญาตให้จัดชาย 3 คน หญิง 1 คน"];
   if (males === 2 && genders[0] === genders[1])
@@ -25,8 +31,11 @@ export function validateRound(
   profiles: PlayerProfile[],
   players: SessionPlayer[],
   expectedCourts?: number,
+  options: ValidationOptions = {},
 ): string[] {
-  const errors = round.matches.flatMap((m) => validateMatch(m, profiles));
+  const errors = round.matches.flatMap((m) =>
+    validateMatch(m, profiles, options),
+  );
   if (expectedCourts !== undefined && round.matches.length !== expectedCourts)
     errors.push("จำนวนสนามไม่ตรงกับการตั้งค่า");
   const courts = round.matches.map((m) => m.court);

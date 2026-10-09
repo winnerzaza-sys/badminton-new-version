@@ -17,6 +17,7 @@ import {
   archiveSession,
   validateBlock,
 } from "../../src/features/schedule/service";
+import { validateRound } from "../../src/domain/pairing/validator";
 import { hydrateSession } from "../../src/features/session/hydrate";
 function fixture(genders = "MMMMMMMMMMMM") {
   const ps = profiles(genders),
@@ -51,7 +52,7 @@ describe("manual changes", () => {
     expect(resetGenerated(s, edit, ps, 0).rounds).toEqual(b.rounds);
     expect(edit.score).toEqual(projectBlock(s, edit).score);
   });
-  it("rejects 3M1F and MM vs FF proposals atomically", () => {
+  it("allows manual 3M1F and MM vs FF while automatic validation stays strict", () => {
     const { ps, s, b } = fixture("MMMMFFFF");
     const round = {
       ...b.rounds[0],
@@ -69,10 +70,43 @@ describe("manual changes", () => {
       ],
     };
     b.rounds[0] = round;
-    expect(() => swapPlayers(s, b, ps, 0, "p4", "p2")).toThrow("ชาย 3");
-    expect(() => swapPlayers(s, b, ps, 0, "p4", "p1")).toThrow(
-      "คู่ชายพบคู่หญิง",
-    );
+    const before = structuredClone(b);
+    for (const other of ["p2", "p1"]) {
+      const edit = swapPlayers(s, b, ps, 0, "p4", other);
+      expect(edit.rounds[0].manualGenderOverride).toBe(true);
+      expect(() => validateBlock(s, edit, ps)).not.toThrow();
+      // Generator/default validator still rejects either gender combination.
+      expect(validateRound(edit.rounds[0], ps, b.baselinePlayers!)).not.toEqual(
+        [],
+      );
+      expect(b).toEqual(before);
+      expect(undoEdit(s, edit, ps).rounds).toEqual(b.rounds);
+      expect(resetGenerated(s, edit, ps, 0).rounds).toEqual(
+        b.originalGeneratedRounds,
+      );
+      const persisted = hydrateSession(
+        JSON.parse(JSON.stringify({ ...s, blocks: [edit] })),
+        ps,
+      );
+      expect(() =>
+        validateBlock(persisted, persisted.blocks[0], ps),
+      ).not.toThrow();
+      const next = swapPlayers(
+        s,
+        edit,
+        ps,
+        1,
+        edit.rounds[1].matches[0].teamA.playerIds[0],
+        edit.rounds[1].matches[0].teamA.playerIds[1],
+      );
+      expect(next.rounds[0]).toEqual(edit.rounds[0]);
+      const regenerated = regenerateRemaining(s, edit, ps, 1, 31);
+      expect(regenerated.rounds[0]).toEqual(edit.rounds[0]);
+      for (const r of regenerated.rounds.slice(1)) {
+        expect(r.manualGenderOverride).toBeUndefined();
+        expect(validateRound(r, ps, b.baselinePlayers!)).toEqual([]);
+      }
+    }
   });
   it("respects locked pairs; unlock is explicit; completed sessions reject changes", () => {
     const { ps, s, b } = fixture();

@@ -76,6 +76,8 @@ export function validateBlock(
       r,
       sessionProfiles(session, profiles),
       blockBaseline(session, block),
+      undefined,
+      { allowAnyGenderCombination: r.manualGenderOverride === true },
     ),
   );
   if (errors.length) throw new Error([...new Set(errors)].join(" · "));
@@ -107,6 +109,7 @@ export function swapPlayers(
     for (const team of [match.teamA, match.teamB])
       team.playerIds = team.playerIds.map(exchange) as [string, string];
   round.restingPlayerIds = round.restingPlayerIds.map(exchange);
+  round.manualGenderOverride = true;
   validateBlock(session, block, profiles);
   block.undoHistory = [
     ...(source.undoHistory ?? []),

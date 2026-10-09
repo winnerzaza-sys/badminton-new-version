@@ -49,8 +49,8 @@ Target:
 
 ## 5. Manual Editing
 - swap two players validly.
-- reject swap causing 3M1F.
-- reject swap causing MM vs FF.
+- allow manual swaps causing 3M1F or MM vs FF, including persistence/undo/reset.
+- automatic generation/default validation still reject both; regenerating later rounds preserves manually edited earlier rounds and produces strict new rounds.
 - replace playing player with resting player.
 - undo.
 - reset to generated schedule.

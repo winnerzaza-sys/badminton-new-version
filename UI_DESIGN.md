@@ -124,7 +124,7 @@ Actions:
 - Tablet/Desktop: support drag-and-drop and tap-to-swap.
 - Resting players can replace playing players.
 - Fixed pair displays lock indicator.
-- Invalid edit shows concise reason and does not apply.
+- Manual edits allow 3M1F and MM vs FF; automatic generation does not. Other invalid edits show a concise reason and do not apply.
 - Show Undo and Reset to Generated.
 - Show live fairness score delta after valid edit.
 

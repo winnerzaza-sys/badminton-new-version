@@ -155,7 +155,7 @@ Return:
 ## 9. Manual Editing
 Manual swap/replace flow:
 1. Create proposed edit.
-2. Validate affected round hard rules.
+2. Validate affected round hard rules, except the 3M1F and MM-vs-FF restrictions explicitly waived for manual edits. Persist this exception on the edited round so undo, reload and regenerating later rounds work. Newly generated rounds still enforce both restrictions.
 3. If invalid, reject and explain rule.
 4. If valid, apply edit.
 5. Recalculate schedule score and projected stats.

@@ -15,14 +15,14 @@ Build a responsive offline-first badminton pairing PWA. Read all specification f
 If specifications appear to conflict, do not silently invent a rule. Prefer the higher-priority document and leave a TODO/comment explaining the ambiguity.
 
 ## Critical Rules — Never Change Without Explicit Instruction
-- 3M1F is forbidden.
-- MM vs FF is forbidden.
+- 3M1F is forbidden in automatic pairing; explicitly allowed for manual edits (user request, 9 October 2026).
+- MM vs FF is forbidden in automatic pairing; explicitly allowed for manual edits.
 - 1M3F (MF vs FF) is allowed.
 - MM vs MM, MF vs MF, FF vs FF are allowed.
 - There is no hard maximum consecutive-game rule.
 - Qwen/LLM is NOT part of MVP.
 - Pairing should generate a full schedule block (default 1 hour), not require users to finish every physical round in the app.
-- Manual editing is allowed but must still satisfy hard rules.
+- Manual editing must satisfy all hard rules except the two explicitly waived gender restrictions above.
 
 ## Architecture
 Keep these layers separate:

@@ -85,11 +85,32 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
   expect(invalid).toBeDefined();
   await page.locator(`[data-player-id="${invalid![0]}"]`).click();
   await page.locator(`[data-player-id="${invalid![1]}"]`).click();
-  await expect(page.getByRole("alert")).toContainText(/ไม่อนุญาต/);
+  await expect(page.getByText(/สลับผู้เล่นแล้ว/)).toBeVisible();
+  const manual = await savedSession(page);
+  expect(manual.blocks[0].rounds[0].manualGenderOverride).toBe(true);
+  expect(
+    validateRound(
+      manual.blocks[0].rounds[0],
+      Object.values(manual.playerProfiles!),
+      manual.blocks[0].baselinePlayers!,
+    ),
+  ).not.toEqual([]);
+  await page.reload();
+  await page.getByRole("button", { name: "เปิดเซสชันเดิม →" }).click();
+  await page
+    .locator(".block-tabs")
+    .getByRole("button", { name: "ปรับคู่", exact: true })
+    .click();
+  expect((await savedSession(page)).blocks[0].rounds).toEqual(
+    manual.blocks[0].rounds,
+  );
+  await page.getByRole("button", { name: "ย้อนการแก้ไข", exact: true }).click();
+  await expect(
+    page.getByText("ย้อนการแก้ไขแล้ว", { exact: true }),
+  ).toBeVisible();
   expect((await savedSession(page)).blocks[0].rounds).toEqual(
     original.blocks[0].rounds,
   );
-  await page.getByRole("button", { name: "ปิดข้อความ" }).click();
   await page
     .locator(".round-tabs")
     .getByRole("button", { name: "รอบ 4", exact: true })

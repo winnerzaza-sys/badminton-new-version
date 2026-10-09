@@ -58,7 +58,7 @@ Suggested breakpoints:
 - Replace a playing player with a resting player.
 - Touch-friendly tap-to-swap on mobile.
 - Drag & drop may be used on tablet/desktop.
-- Validate hard rules after every edit.
+- Validate hard rules after every edit, except 3M1F and MM vs FF, which are allowed for manual edits only. Automatic pairing remains strict.
 - Recalculate schedule fairness after edits.
 - Undo edits.
 - Reset round/schedule to generated version.

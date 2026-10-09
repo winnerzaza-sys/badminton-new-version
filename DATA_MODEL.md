@@ -46,6 +46,7 @@ export interface RoundSchedule {
   estimatedEnd?: string;
   matches: Match[];
   restingPlayerIds: string[];
+  manualGenderOverride?: boolean; // Only manual edits waive the two gender rules.
 }
 
 export interface ScoreBreakdown {

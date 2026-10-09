@@ -36,6 +36,8 @@ export interface RoundSchedule {
   estimatedEnd?: string;
   matches: Match[];
   restingPlayerIds: string[];
+  // Persist the gender-rule exception only for rounds edited manually.
+  manualGenderOverride?: boolean;
   // Historical availability/locks must survive later roster changes.
   eligiblePlayerIds?: string[];
   fixedPairs?: [string, string][];

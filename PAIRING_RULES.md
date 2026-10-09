@@ -1,7 +1,7 @@
 # Pairing Rules v2
 
 ## Principle
-Hard rules must never be violated. Soft rules are optimization goals and may be traded off when necessary.
+Automatic pairing must satisfy every hard rule. Manual editing explicitly permits 3M1F and MM vs FF (user request, 9 October 2026); all other hard rules still apply. Soft rules are optimization goals and may be traded off when necessary.
 
 ## Hard Rules
 1. Exactly 4 players per active court.

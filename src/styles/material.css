@@ -1,0 +1,612 @@
+/* Approved Material 3 pastel-blue theme. Layouts remain purpose-built below.
+   Names and controls stay >=16px, rather than the smaller preview labels. */
+:root {
+  color: #29384d;
+  --app-background: #f5f9ff;
+  --blue: #4775b2;
+  --primary: #4775b2;
+  --nav-active: #4775b2;
+  --nav-idle: #5c6c80;
+  --text: #29384d;
+  --muted: #5c6c80;
+  --glass-panel-bg: #fff;
+  --glass-border: 0;
+  --glass-panel-shadow: none;
+  --glass-bar-shadow: none;
+  --lens: #fff;
+  --lens-shadow: 0 1px 3px #29384d12;
+}
+.panel,
+.glass-bar,
+.session-card,
+.topbar,
+.primary,
+.nav-new,
+.glass-confirm .ant-modal-container,
+.undo-toast {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+.panel,
+.session-card {
+  background: #fff;
+  border: 0;
+  border-radius: 28px;
+}
+.glass-bar,
+.sidebar {
+  background: #edf3fc;
+  border: 0;
+}
+.topbar {
+  background: transparent;
+  border: 0;
+  padding: 8px 0;
+}
+.primary,
+.danger {
+  border: 0 !important;
+  box-shadow: none;
+  border-radius: 24px;
+}
+.secondary {
+  background: #fff;
+  color: var(--primary);
+  border: 1px solid #d2dff1 !important;
+  box-shadow: none;
+  border-radius: 24px;
+}
+.nav-new {
+  background: #dceafd;
+  color: #3d6497;
+  border: 0 !important;
+}
+.nav-item.selected {
+  color: #3d6497;
+  background: #dceafd;
+}
+.connection,
+.sidebar-context {
+  background: #e8f0fc;
+  color: var(--muted);
+}
+.brand {
+  gap: 10px;
+}
+.brand small {
+  font-size: 16px;
+}
+.shuttle-mark {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #dceafd;
+  color: #4775b2;
+  border-radius: 17px;
+}
+.shuttle-mark > .icon {
+  transform: rotate(-18deg);
+}
+.hero-shuttle {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background: #faf9dc;
+  border-radius: 38% 60% 38% 60%;
+}
+.hero-shuttle::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  bottom: 5px;
+  width: 17px;
+  height: 17px;
+  background: #efbdcc;
+  border-radius: 50%;
+}
+.shuttle-spark {
+  position: absolute;
+  right: -12px;
+  top: -5px;
+  color: #6889b5;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-shrink: 0;
+}
+.page-title {
+  background: #dceafd;
+  border-radius: 30px;
+  padding: 24px 28px;
+  min-height: 142px;
+  gap: 20px;
+}
+.page-title h1 {
+  color: #29384d;
+}
+.page-title p {
+  color: #526782;
+}
+.eyebrow {
+  color: #3d6497;
+  font-size: 13px;
+}
+.badge,
+.count {
+  background: #e8f0fc;
+  color: #526782;
+}
+.resume-card,
+.generate-footer,
+.play-settings .config-grid > .ant-form-item,
+.fairness-facts > div,
+.local-note,
+.edit-instruction {
+  background: #f3f7fd;
+  border: 0;
+}
+.play-settings {
+  border: 0;
+}
+.player-option {
+  background: #f5f8fd;
+  border: 1px solid #e5edf8;
+  border-radius: 18px;
+}
+.player-option.checked {
+  background: #e8f0fc;
+  border-color: #aac5e7;
+}
+.avatar {
+  background: #e8f0fc;
+  color: #3d6497;
+  border: 2px solid #fff;
+  box-shadow: none;
+}
+.court {
+  border: 0;
+  box-shadow: none;
+  border-radius: 22px;
+}
+.court-1,
+.mobile-match.court-1 {
+  background: #d9efdf;
+}
+.court-2,
+.mobile-match.court-2 {
+  background: #f8dfe5;
+}
+.rest {
+  background: #e1eaf9;
+}
+.court h3 {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  font-size: 17px;
+  margin: 0;
+  padding: 16px 18px 6px;
+}
+.court-1 h3 {
+  color: #315741;
+}
+.court-2 h3 {
+  color: #865663;
+}
+.rest h3 {
+  color: #435b7d;
+}
+.court-player small {
+  color: #52616e;
+}
+.versus {
+  color: #52616e;
+}
+.round-tabs,
+.segmented {
+  background: #e8f0fc;
+  border: 0;
+  box-shadow: none;
+}
+.round-tabs button {
+  background: transparent;
+  color: #526782;
+}
+.round-tabs .active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: none;
+}
+.segmented .selected {
+  background: #fff;
+  color: #3d6497;
+}
+.round-arrows button {
+  width: 44px;
+  padding: 0;
+}
+.round-link {
+  background: #e8f0fc;
+  color: #3d6497;
+}
+.app-shell thead {
+  background: #f3f7fd;
+}
+.heading-1 {
+  background: #d9efdf;
+  color: #315741;
+}
+.heading-2 {
+  background: #f8dfe5;
+  color: #865663;
+}
+.heading-rest {
+  background: #e1eaf9;
+  color: #435b7d;
+}
+.current-row {
+  background: #f0f6ff;
+}
+.app-shell td,
+.app-shell th {
+  border-bottom-color: #edf2f9;
+}
+.playing-streak {
+  border: 0;
+  border-radius: 20px;
+}
+.playing-streak-legend {
+  background: transparent;
+  color: var(--muted);
+  padding: 0;
+}
+.player-token.picked {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px #4775b220;
+}
+.date-tile,
+.select-check {
+  background: #e8f0fc;
+  box-shadow: none;
+}
+.session-row.checked {
+  background: #e8f0fc;
+}
+.session-card.checked {
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.glass-confirm .ant-modal-container {
+  background: #fff;
+  border: 0;
+}
+.glass-confirm .ant-modal-mask {
+  background: #29384d66;
+}
+.undo-toast {
+  background: #29384d;
+}
+.icon-credit a {
+  color: #3d6497;
+}
+
+/* iPad landscape and desktop: compact rail, two courts and a full-width rest row. */
+@media (min-width: 1024px) {
+  .app-shell {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+  .sidebar {
+    top: 0;
+    height: 100vh;
+    margin: 0;
+    padding: 24px 10px 16px;
+    border-radius: 0;
+  }
+  .sidebar .brand {
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+  .sidebar .brand > div {
+    display: none;
+  }
+  .sidebar .nav-item {
+    height: auto;
+    min-height: 64px;
+    padding: 10px 4px;
+    flex-direction: column;
+    gap: 7px;
+    border-radius: 22px;
+    font-size: 16px;
+    white-space: normal;
+  }
+  .sidebar-context {
+    padding: 10px 4px;
+    font-size: 16px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .workspace {
+    padding: 16px 24px 32px;
+  }
+  .mobile-brand {
+    display: flex;
+  }
+  .mobile-brand .shuttle-mark,
+  .mobile-brand small {
+    display: none;
+  }
+  .court-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .court.rest {
+    grid-column: 1 / -1;
+  }
+  .rest-players {
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 12px 18px;
+  }
+  .rest .court-player {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .rest .court-player small {
+    width: 100%;
+  }
+  .court .avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  .schedule-layout {
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 20px;
+  }
+  .roster-panel {
+    background: #edf3fc;
+    border-radius: 28px;
+  }
+  .roster-controls {
+    grid-template-columns: 1fr;
+  }
+}
+/* Portrait tablet: compact navigation above content and larger touch court cards. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .workspace {
+    padding: 84px 24px 32px;
+  }
+  .floating-nav .bottom-nav {
+    background: #edf3fc;
+    box-shadow: 0 1px 6px #29384d14;
+  }
+  .floating-nav .bottom-nav .nav-item {
+    border-radius: 22px;
+  }
+  .court-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .court.rest {
+    grid-column: 1 / -1;
+  }
+  .court .avatar {
+    width: 52px;
+    height: 52px;
+    font-size: 20px;
+  }
+  .hero-actions {
+    gap: 16px;
+  }
+  .hero-shuttle {
+    width: 80px;
+    height: 80px;
+  }
+  .hero-actions .secondary {
+    max-width: 160px;
+    white-space: normal;
+  }
+}
+/* Phone: stacked courts, readable round cards, persistent bottom navigation. */
+@media (max-width: 767px) {
+  .workspace {
+    padding: 0 16px 116px;
+  }
+  .topbar {
+    margin-bottom: 12px;
+    min-height: 68px;
+    gap: 8px;
+  }
+  .mobile-brand {
+    gap: 8px;
+  }
+  .mobile-brand .shuttle-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 14px;
+  }
+  .brand strong {
+    font-size: 20px;
+  }
+  .mobile-brand small {
+    display: none;
+  }
+  .connection {
+    padding: 6px 8px;
+    font-size: 16px;
+  }
+  .mobile-settings {
+    width: 44px;
+    height: 44px;
+  }
+  .panel {
+    padding: 18px 16px;
+    border-radius: 24px;
+  }
+  .page-title {
+    min-height: 132px;
+    padding: 22px 20px;
+    position: relative;
+    gap: 14px;
+  }
+  .setup-layout .page-title {
+    flex-wrap: nowrap;
+  }
+  .setup-layout .page-title > div {
+    flex: 1;
+    min-width: 0;
+  }
+  .hero-shuttle {
+    width: 64px;
+    height: 64px;
+    margin-right: 5px;
+  }
+  .hero-shuttle > .icon {
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 46px !important;
+  }
+  .shuttle-spark {
+    right: -8px;
+    top: -9px;
+  }
+  .hero-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .hero-actions .hero-shuttle {
+    order: 2;
+  }
+  .hero-actions .secondary {
+    max-width: calc(100% - 90px);
+  }
+  .court-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .court h3 {
+    padding: 14px 16px 6px;
+  }
+  .team {
+    gap: 14px;
+    padding: 12px 12px 0;
+    justify-content: space-around;
+  }
+  .court-player {
+    flex: 1;
+    min-width: 0;
+  }
+  .court .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  .round-tabs {
+    border-radius: 24px;
+    flex-wrap: wrap;
+  }
+  .round-tabs button {
+    flex: 1 0 26%;
+  }
+  .playing-streak-legend {
+    align-items: flex-start;
+  }
+  .playing-streak-legend .playing-streak {
+    margin-top: 2px;
+  }
+  .mobile-round {
+    background: #f3f7fd;
+    border: 0;
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .mobile-match {
+    grid-template-columns: 70px minmax(0, 1fr);
+  }
+  .floating-nav {
+    left: 8px;
+    right: 8px;
+    gap: 8px;
+  }
+  .floating-nav .bottom-nav {
+    background: #edf3fc;
+    border: 1px solid #d2dff1;
+    padding: 4px;
+    border-radius: 26px;
+  }
+  .floating-nav .bottom-nav .nav-item {
+    font-size: 16px;
+    border-radius: 22px;
+    padding: 4px 2px;
+  }
+  .nav-new {
+    width: 56px;
+    height: 56px;
+    align-self: center;
+  }
+}
+/* Text actions on tonal backgrounds need the darker blue, including hover. */
+.text-button,
+.selection-actions button {
+  color: #3d6497;
+}
+.single-court > .court {
+  grid-column: 1 / -1;
+}
+/* Compact name rows on courtside/phone layouts keep both courts and rest close.
+   Gender/lock labels remain visible and long names wrap instead of shrinking. */
+@media (min-width: 1024px), (max-width: 767px) {
+  .court-player {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    align-items: center;
+    gap: 3px 7px;
+    text-align: left;
+    flex: 1;
+  }
+  .court-player .avatar {
+    grid-row: 1 / 3;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+  .court-player .scheduled-player-name {
+    justify-content: flex-start;
+  }
+  .court-player small {
+    grid-column: 2;
+  }
+  .team {
+    align-items: stretch;
+    padding: 10px 14px 0;
+    gap: 14px;
+  }
+  .versus {
+    padding-top: 8px;
+    font-size: 16px;
+  }
+  .rest .court-player {
+    flex: 0 1 180px;
+  }
+  .rest .court-player small {
+    width: auto;
+  }
+  .rest-players {
+    gap: 16px;
+    padding: 10px 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .floating-nav .bottom-nav .nav-item {
+    font-size: 16px;
+  }
+}

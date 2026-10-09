@@ -6,6 +6,7 @@ import { History } from "./features/history/History";
 import { Settings } from "./features/home/Settings";
 import { useBadminton } from "./hooks/useBadminton";
 import { Icon, type IconName } from "./components/Icon";
+import { ShuttleMark } from "./components/ShuttleMark";
 import { avatarStyle } from "./utils/avatar";
 const time = (value?: string) =>
   value
@@ -104,6 +105,7 @@ export function App() {
     >
       <aside className="sidebar glass-bar">
         <div className="brand">
+          <ShuttleMark />
           <div>
             <strong>แบดมินตัน</strong>
             <small>Pairing & Schedule</small>
@@ -118,6 +120,7 @@ export function App() {
       <div className="workspace">
         <header className="topbar">
           <div className="brand mobile-brand">
+            <ShuttleMark />
             <div>
               <strong>แบดมินตัน</strong>
               <small>Pairing & Schedule</small>
@@ -184,12 +187,7 @@ export function App() {
                   <h1>สร้างตารางวันนี้</h1>
                   <p>เลือกเพื่อน ตั้งเวลา แล้วจัดครบทุกเกมในครั้งเดียว</p>
                 </div>
-                <img
-                  className="courtside-illustration"
-                  src="/courtside.svg"
-                  alt=""
-                  aria-hidden="true"
-                />
+                <ShuttleMark hero />
               </div>
               {unfinished && (
                 <article className="resume-card">

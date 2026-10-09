@@ -1,0 +1,72 @@
+/* Flaticon UIcons 3.3.1, Regular Rounded. Attribution in Settings. */
+@font-face {
+  font-family: "UIcons Rounded";
+  src: url("/fonts/uicons-regular-rounded.woff2") format("woff2");
+  font-display: block;
+}
+.flaticon-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-style: normal;
+  line-height: 1;
+}
+.flaticon-icon::before {
+  font-family: "UIcons Rounded";
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+.flaticon-calendar-days::before {
+  content: "\f339";
+}
+.flaticon-history::before {
+  content: "\fdaa";
+}
+.flaticon-users::before {
+  content: "\fea6";
+}
+.flaticon-chart-column::before {
+  content: "\f3ad";
+}
+.flaticon-settings::before {
+  content: "\fbd2";
+}
+.flaticon-plus::before {
+  content: "\faac";
+}
+.flaticon-trash-2::before {
+  content: "\fe17";
+}
+.flaticon-check::before {
+  content: "\f3c8";
+}
+.flaticon-chevron-left::before {
+  content: "\f151";
+}
+.flaticon-chevron-right::before {
+  content: "\f152";
+}
+.flaticon-triangle-alert::before {
+  content: "\fe33";
+}
+.flaticon-panel-left::before {
+  content: "\f16c";
+}
+.flaticon-info::before {
+  content: "\f80b";
+}
+.flaticon-shuttlecock::before {
+  content: "\fc05";
+}
+.flaticon-sparkles::before {
+  content: "\fc84";
+}
+.flaticon-badminton::before {
+  content: "\f1f3";
+}
+.flaticon-coffee::before {
+  content: "\f48f";
+}

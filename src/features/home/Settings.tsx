@@ -118,6 +118,16 @@ export function Settings({ app }: { app: ReturnType<typeof useBadminton> }) {
       </section>
       <section className="panel">
         <h2>เวอร์ชันแอป</h2>
+        <p className="muted icon-credit">
+          UIcons by{" "}
+          <a
+            href="https://www.flaticon.com/uicons"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Flaticon
+          </a>
+        </p>
         <div className="toolbar">
           <button
             className="secondary"

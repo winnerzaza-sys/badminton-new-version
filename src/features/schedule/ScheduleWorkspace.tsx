@@ -14,6 +14,8 @@ import {
 import { SharePreview } from "../share/SharePreview";
 import { formatTime } from "../../utils/format";
 import { avatarStyle } from "../../utils/avatar";
+import { Icon } from "../../components/Icon";
+import { ShuttleMark } from "../../components/ShuttleMark";
 type Controller = ReturnType<typeof useBadminton>;
 export function SummaryPanel({ app }: { app: Controller }) {
   const { session, block, name } = app;
@@ -239,10 +241,14 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
     ));
   }
   const cards = (
-    <div className="court-grid">
+    <div
+      className={`court-grid ${block.courtCount === 1 ? "single-court" : ""}`}
+    >
       {current.matches.map((m) => (
         <article className={`court court-${m.court}`} key={m.court}>
-          <h3>{courtName(block.courtNames, m.court)}</h3>
+          <h3>
+            <Icon name="badminton" /> {courtName(block.courtNames, m.court)}
+          </h3>
           {[m.teamA, m.teamB].map((team, i) => (
             <div className="team-wrap" key={i}>
               {i === 1 && <span className="versus">VS</span>}
@@ -254,7 +260,9 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
         </article>
       ))}
       <article className="court rest">
-        <h3>พัก ({current.restingPlayerIds.length} คน)</h3>
+        <h3>
+          <Icon name="coffee" /> พัก ({current.restingPlayerIds.length} คน)
+        </h3>
         <div className="rest-players">
           {current.restingPlayerIds.map((id) => token(id, current))}
         </div>
@@ -284,9 +292,12 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
             {readOnly ? " · จบเซสชันแล้ว" : ""}
           </p>
         </div>
-        <button className="secondary" onClick={() => app.newSetup()}>
-          ＋ สร้างตารางใหม่
-        </button>
+        <div className="hero-actions">
+          <ShuttleMark hero />
+          <button className="secondary" onClick={() => app.newSetup()}>
+            ＋ สร้างตารางใหม่
+          </button>
+        </div>
       </div>
       <div className="block-toolbar">
         <label>
@@ -389,7 +400,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                       setPicked(undefined);
                     }}
                   >
-                    ‹
+                    <Icon name="chevron-left" />
                   </button>
                   <button
                     className="secondary"
@@ -400,7 +411,7 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                       setPicked(undefined);
                     }}
                   >
-                    ›
+                    <Icon name="chevron-right" />
                   </button>
                 </div>
               </div>

@@ -14,8 +14,8 @@ export default defineConfig({
         lang: "th",
         start_url: "/",
         display: "standalone",
-        background_color: "#f3f7fc",
-        theme_color: "#1266ef",
+        background_color: "#f5f9ff",
+        theme_color: "#4775b2",
         icons: [
           { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
           {
@@ -26,7 +26,7 @@ export default defineConfig({
           },
         ],
       },
-      workbox: { globPatterns: ["**/*.{js,css,html,png,svg,ico,ttf}"] },
+      workbox: { globPatterns: ["**/*.{js,css,html,png,svg,ico,ttf,woff2}"] },
     }),
   ],
   test: {

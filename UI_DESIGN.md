@@ -1,5 +1,21 @@
 # UI Design — Responsive PWA
 
+## Approved Material 3 pastel-blue design — 9 October 2026
+
+The approved preview supersedes the earlier glass/gray skin. Use a flat pale-blue
+background (#f5f9ff), blue tonal headers/navigation (#dceafd / #edf3fc), blue primary
+controls (#4775b2), white rounded panels and dark text (#29384d). Keep Court 1 mint,
+Court 2 pink and Rest blue; retain amber replay badges. Flaticon UIcons Regular
+Rounded are bundled locally and precached for offline use, with attribution in
+Settings. The shuttlecock mark decorates branding and session headers.
+
+Keep real body text, player names and form controls at least 16px, rather than the
+smaller labels in the conceptual preview. Wide layouts retain the full schedule,
+roster and statistics, with a compact left navigation rail and two court cards above
+a full-width rest area. Portrait tablets keep compact top navigation and larger
+touch cards; phones keep stacked courts, round lists and persistent bottom navigation.
+The dedicated PNG composition remains data-driven and uses the same pastel palette.
+
 ## Requested visual refinement — October 2026
 Ant Design controls: all dropdowns use Select, with search for larger option lists.
 Fixed-partner dropdowns disable typing/search and select directly from the roster.
@@ -21,12 +37,10 @@ table headers and exported PNG headings), and Sarabun for body text and controls
 Regular, semibold and bold files are included with their OFL licenses and cached
 for offline use. PNG export explicitly loads both font families before measuring.
 
-The user requested a cuter badminton theme after the initial release. Keep the
-reference's layout hierarchy, blue primary actions and green/pink/blue court/rest
-semantics, with a solid light gray (#f3f4f6) app/sidebar background, rounder cards and a small decorative
-shuttle/racket/court illustration. The illustration is local SVG and has no
-interaction or accessible meaning. App surfaces and buttons use flat colors without
-gradients, as requested in October 2026. Export composition remains unchanged.
+Keep the reference's layout hierarchy and green/pink/blue court/rest semantics.
+The approved pastel-blue theme uses rounded opaque surfaces and the locally bundled
+Flaticon shuttlecock mark. App surfaces and buttons use flat colors without gradients.
+Export composition remains independent from the viewport.
 
 Play settings use two columns across 768–1199px, rather than the initial three,
 to allow comfortable tablet controls. Labels and controls must allow shrinking

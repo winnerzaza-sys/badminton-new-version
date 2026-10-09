@@ -20,13 +20,7 @@ test("full-block generation, persistence and four intentional layouts", async ({
     .evaluate(
       (el) => getComputedStyle(el).gridTemplateColumns.split(" ").length,
     );
-  expect(columns).toBe(
-    info.project.name.startsWith("mobile")
-      ? 1
-      : info.project.name === "ipad-portrait"
-        ? 2
-        : 3,
-  );
+  expect(columns).toBe(info.project.name.startsWith("mobile") ? 1 : 2);
   if (info.project.name.startsWith("mobile")) {
     await expect(page.locator(".schedule-table")).toBeHidden();
     await expect(page.locator(".mobile-round")).toHaveCount(6);
@@ -103,13 +97,14 @@ test("cached production shell and pairing work offline", async ({
     const faces = await Promise.all([
       document.fonts.load('700 26px "Prompt"', "หัวข้อ"),
       document.fonts.load('400 16px "Sarabun"', "ข้อความ"),
+      document.fonts.load('20px "UIcons Rounded"', "\ufc05"),
     ]);
     return faces.map(
       (group) =>
         group.length > 0 && group.every((face) => face.status === "loaded"),
     );
   });
-  expect(offlineFonts).toEqual([true, true]);
+  expect(offlineFonts).toEqual([true, true, true]);
   await page.getByRole("button", { name: "เลือกทั้งหมด", exact: true }).click();
   await page.getByRole("button", { name: "✧ สร้างตาราง", exact: true }).click();
   await expect(

@@ -203,9 +203,9 @@ export function renderShareCanvas(
     110 +
     summaryRows.reduce((s, row) => s + row.height, 0) +
     90;
-  ctx.fillStyle = "#f4f8fc";
+  ctx.fillStyle = "#f5f9ff";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#123c50";
+  ctx.fillStyle = "#3d6497";
   ctx.fillRect(0, 0, canvas.width, 230);
   ctx.fillStyle = "#fff";
   ctx.font = font(46, true);
@@ -229,7 +229,7 @@ export function renderShareCanvas(
     540,
     180,
   );
-  const colors = ["#ddf5e5", "#ffe3ea", "#e4efff"];
+  const colors = ["#d9efdf", "#f8dfe5", "#e1eaf9"];
   ctx.fillStyle = "#fff8e9";
   ctx.fillRect(32, 244, 1016, 54);
   drawBadge(3, 56, 280);

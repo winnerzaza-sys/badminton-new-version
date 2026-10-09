@@ -2,7 +2,7 @@ import { AppSelect } from "../../components/AppSelect";
 import { Alert, Modal } from "antd";
 import { CourtNameFields } from "../../components/CourtNameFields";
 import { courtName, normalizeCourtNames } from "../../domain/models/courts";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import type { RoundSchedule } from "../../domain/models";
 import type { useBadminton } from "../../hooks/useBadminton";
 import { blockBaseline, projectBlock } from "./service";
@@ -15,7 +15,13 @@ import { SharePreview } from "../share/SharePreview";
 import { formatTime } from "../../utils/format";
 import { avatarStyle } from "../../utils/avatar";
 import { Icon } from "../../components/Icon";
-import { ShuttleMark } from "../../components/ShuttleMark";
+const CourtScene3D = lazy(() => import("./CourtScene3D"));
+import {
+  CourtViewSwitch,
+  loadCourtView,
+  saveCourtView,
+  type CourtView,
+} from "./CourtViewSwitch";
 type Controller = ReturnType<typeof useBadminton>;
 export function SummaryPanel({ app }: { app: Controller }) {
   const { session, block, name } = app;
@@ -135,6 +141,14 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
     [rounds, setRounds] = useState(6);
   const [namingCourts, setNamingCourts] = useState(false),
     [courtNames, setCourtNames] = useState<string[]>([]);
+  // Per-device display preference for the current round's courts.
+  const [courtView, setCourtView] = useState<CourtView | undefined>(
+    loadCourtView,
+  );
+  function changeCourtView(view: CourtView) {
+    setCourtView(view);
+    saveCourtView(view);
+  }
   useEffect(() => {
     setPicked(undefined);
   }, [page, roundIndex, blockIndex, session?.id, block?.updatedAt]);
@@ -240,23 +254,52 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
       </span>
     ));
   }
+  const scenePlayer = (id: string) => ({
+    name: name(id),
+    gender: (
+      session?.playerProfiles?.[id] ?? app.players.find((p) => p.id === id)
+    )?.gender,
+    streak: streaks[current.roundNumber]?.[id] ?? 0,
+  });
+  // In adjust mode the scene reuses the same tap-to-swap flow as the cards.
+  const scene = courtView === "orbit" && (
+    <Suspense
+      fallback={
+        <p className="scene-fallback" role="status">
+          กำลังโหลดสนาม 3D…
+        </p>
+      }
+    >
+      <CourtScene3D
+        round={current}
+        courtCount={block.courtCount}
+        courtNames={block.courtNames}
+        player={scenePlayer}
+        picked={editing ? picked : undefined}
+        onPick={editing ? choose : undefined}
+        disabled={busy}
+      />
+    </Suspense>
+  );
   const cards = (
     <div
-      className={`court-grid ${block.courtCount === 1 ? "single-court" : ""}`}
+      className={`court-grid ${block.courtCount === 1 ? "single-court" : ""} ${courtView === "court" ? "court-3d" : ""}`}
     >
       {current.matches.map((m) => (
         <article className={`court court-${m.court}`} key={m.court}>
           <h3>
             <Icon name="badminton" /> {courtName(block.courtNames, m.court)}
           </h3>
-          {[m.teamA, m.teamB].map((team, i) => (
-            <div className="team-wrap" key={i}>
-              {i === 1 && <span className="versus">VS</span>}
-              <div className="team">
-                {team.playerIds.map((id) => token(id, current))}
+          <div className="court-stage" key={current.roundNumber}>
+            {[m.teamA, m.teamB].map((team, i) => (
+              <div className="team-wrap" key={i}>
+                {i === 1 && <span className="versus">VS</span>}
+                <div className="team">
+                  {team.playerIds.map((id) => token(id, current))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </article>
       ))}
       <article className="court rest">
@@ -293,7 +336,6 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
           </p>
         </div>
         <div className="hero-actions">
-          <ShuttleMark hero />
           <button className="secondary" onClick={() => app.newSetup()}>
             ＋ สร้างตารางใหม่
           </button>
@@ -318,50 +360,60 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
             ))}
           </AppSelect>
         </label>
-        <div className="toolbar">
-          {!readOnly && (
-            <button
-              className="secondary"
-              disabled={busy}
-              onClick={() => {
-                setCourtNames(normalizeCourtNames(block.courtNames));
-                setNamingCourts(true);
-              }}
-            >
-              แก้ไขชื่อสนาม
-            </button>
-          )}
+        {/* A rare block setting, so it sits beside the block picker as a quiet
+            text action instead of competing with the page tabs. */}
+        {!readOnly && (
           <button
-            className={page === "schedule" ? "primary" : "secondary"}
-            onClick={() => setPage("schedule")}
+            className="text-button rename-courts"
+            disabled={busy}
+            onClick={() => {
+              setCourtNames(normalizeCourtNames(block.courtNames));
+              setNamingCourts(true);
+            }}
           >
-            ตารางเล่น
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" />
+            </svg>
+            แก้ไขชื่อสนาม
           </button>
-          {!readOnly && (
+        )}
+      </div>
+      {/* Summary is opened from the main navigation, so the session tabs
+          (which no longer include it) are hidden there. */}
+      {page !== "summary" && (
+        <nav className="block-tabs" aria-label="หน้าของเซสชัน">
+          {(
+            [
+              ["schedule", "ตารางเล่น"],
+              ...(readOnly ? [] : [["adjust", "ปรับคู่"]]),
+              // Summary is reached from the main navigation, not duplicated here.
+              ["share", "ส่งออก / แชร์"],
+            ] as [typeof page, string][]
+          ).map(([id, label]) => (
             <button
-              className={editing ? "primary" : "secondary"}
+              key={id}
+              aria-current={page === id ? "page" : undefined}
               onClick={() => {
-                setPage("adjust");
+                setPage(id);
                 setPicked(undefined);
               }}
             >
-              ปรับคู่
+              {label}
             </button>
-          )}
-          <button
-            className={page === "summary" ? "primary" : "secondary"}
-            onClick={() => setPage("summary")}
-          >
-            สรุป
-          </button>
-          <button
-            className={page === "share" ? "primary" : "secondary"}
-            onClick={() => setPage("share")}
-          >
-            ส่งออก / แชร์
-          </button>
-        </div>
-      </div>
+          ))}
+        </nav>
+      )}
       {!!block.warnings?.length && (
         <Alert
           className="app-feedback"
@@ -471,8 +523,11 @@ export function ScheduleWorkspace({ app }: { app: Controller }) {
                   </div>
                 </>
               )}
-              <PlayingStreakLegend />
-              {cards}
+              <div className="court-view-bar">
+                <PlayingStreakLegend />
+                <CourtViewSwitch value={courtView} onChange={changeCourtView} />
+              </div>
+              {scene || cards}
             </section>
             <section className="panel full-schedule">
               <div className="panel-title">

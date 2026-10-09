@@ -65,7 +65,7 @@ test("replay badges agree in round cards, the full schedule and offline PNG", as
     .toBe(true);
   if (info.project.name !== "mobile-webkit") await context.setOffline(true);
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ส่งออก / แชร์", exact: true })
     .click();
   await expect(page.locator(".export-image")).toBeVisible();
@@ -93,7 +93,7 @@ test("PNG export recovers when the asynchronous canvas encoder stalls", async ({
     HTMLCanvasElement.prototype.toBlob = () => {};
   });
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ส่งออก / แชร์", exact: true })
     .click();
   await expect(page.locator(".export-image")).toBeVisible();

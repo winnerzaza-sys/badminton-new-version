@@ -33,13 +33,18 @@ test("Thai forms and schedule workflows meet automated accessibility checks", as
   await check("schedule");
   for (const [label, screen] of [
     ["ปรับคู่", "adjust"],
-    ["สรุป", "summary"],
     ["ส่งออก / แชร์", "share"],
+    ["สรุป", "summary"],
   ]) {
-    await page
-      .locator(".block-toolbar")
-      .getByRole("button", { name: label, exact: true })
-      .click();
+    // Summary lives in the main navigation (and hides the session tabs), so
+    // it is checked last; the others are session tabs.
+    if (screen === "summary")
+      await page.locator('[data-nav="summary"]:visible').click();
+    else
+      await page
+        .locator(".block-tabs")
+        .getByRole("button", { name: label, exact: true })
+        .click();
     if (screen === "share")
       await expect(page.locator(".export-image")).toBeVisible();
     await check(screen);

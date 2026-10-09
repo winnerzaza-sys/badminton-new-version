@@ -44,10 +44,22 @@ function wrap(
   if (line) lines.push(line);
   return lines.length ? lines : ["—"];
 }
+export type ShareImageOptions = { court3d?: boolean };
+// Perspective for the 3D court: share of the floor height the far half takes.
+const FAR = (v: number) => (v * 0.85) / (1 + v * (0.85 - 1));
+const NET = FAR(0.5),
+  NET_HEIGHT = 24,
+  CHIP_STEP = 44;
+const floorHeight = (far: number, near: number) =>
+  Math.max(
+    (far * CHIP_STEP + NET_HEIGHT + 24) / NET,
+    (near * CHIP_STEP + 24) / (1 - NET),
+  );
 export function renderShareCanvas(
   session: Session,
   block: ScheduleBlock,
   profiles: PlayerProfile[],
+  { court3d = false }: ShareImageOptions = {},
 ) {
   const canvas = document.createElement("canvas");
   canvas.width = EXPORT_WIDTH;
@@ -152,24 +164,28 @@ export function renderShareCanvas(
   }
   ctx.font = font(31);
   const rows = block.rounds.map((round) => {
-    const cells = Array.from({ length: block.courtCount }, (_, index) => {
+    const teams = Array.from({ length: block.courtCount }, (_, index) => {
       const match = round.matches.find((m) => m.court === index + 1);
       return match
-        ? [
-            ...teamLines(
+        ? ([
+            teamLines(
               match.teamA.playerIds,
               round.roundNumber,
               columns[index + 1] - 32,
             ),
-            [{ text: "VS" }],
-            ...teamLines(
+            teamLines(
               match.teamB.playerIds,
               round.roundNumber,
               columns[index + 1] - 32,
             ),
-          ]
-        : [[{ text: "ไม่ใช้สนาม" }]];
+          ] as const)
+        : undefined;
     });
+    const cells = teams.map((pair) =>
+      pair
+        ? [...pair[0], [{ text: "VS" }], ...pair[1]]
+        : [[{ text: "ไม่ใช้สนาม" }]],
+    );
     ctx.font = font(31);
     cells.push(
       wrap(
@@ -181,8 +197,13 @@ export function renderShareCanvas(
     const height = Math.max(
       176,
       Math.max(...cells.map((lines) => lines.length)) * 42 + 82,
+      ...(court3d
+        ? teams.map((pair) =>
+            pair ? 58 + floorHeight(pair[0].length, pair[1].length) + 18 : 0,
+          )
+        : []),
     );
-    return { round, cells, height };
+    return { round, cells, teams, height };
   });
   const stats = projectBlock(session, block).projectedPlayers;
   ctx.font = font(25);
@@ -230,6 +251,129 @@ export function renderShareCanvas(
     180,
   );
   const colors = ["#d9efdf", "#f8dfe5", "#e1eaf9"];
+  function drawLine(line: Line, centerX: number, baseline: number) {
+    let left = centerX - lineWidth(line) / 2;
+    for (const part of line) {
+      if (part.streak) drawBadge(part.streak, left, baseline);
+      else {
+        ctx.fillStyle = "#183249";
+        ctx.font = font(31);
+        ctx.textAlign = "left";
+        ctx.fillText(part.text, left, baseline);
+      }
+      left += partWidth(part);
+    }
+  }
+  // Pseudo-3D court: a foreshortened floor with court lines, a standing net,
+  // and player names on upright chips so text stays sharp and readable.
+  function drawCourt3d(
+    x: number,
+    width: number,
+    y: number,
+    height: number,
+    court: number,
+    [far, near]: readonly [Line[], Line[]],
+  ) {
+    const top = y + 58,
+      bottom = y + height - 18,
+      floor = bottom - top,
+      inner = width - 6;
+    const point = (u: number, v: number): [number, number] => {
+      const depth = FAR(v),
+        inset = inner * (0.16 + (0.05 - 0.16) * depth);
+      return [x + 3 + inset + (inner - 2 * inset) * u, top + floor * depth];
+    };
+    const [edge, base] =
+      court === 1 ? ["#7fbf92", "#a6d8b4"] : ["#de9fb0", "#f2bfcc"];
+    ctx.save();
+    ctx.shadowColor = "#29384d55";
+    ctx.shadowBlur = 16;
+    ctx.shadowOffsetY = 10;
+    const gradient = ctx.createLinearGradient(0, top, 0, bottom);
+    gradient.addColorStop(0, edge);
+    gradient.addColorStop(1, base);
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.moveTo(...point(0, 0));
+    ctx.lineTo(...point(1, 0));
+    ctx.lineTo(...point(1, 1));
+    ctx.lineTo(...point(0, 1));
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+    ctx.strokeStyle = "#fff";
+    const segment = (u1: number, v1: number, u2: number, v2: number, w = 2) => {
+      ctx.lineWidth = w;
+      ctx.beginPath();
+      ctx.moveTo(...point(u1, v1));
+      ctx.lineTo(...point(u2, v2));
+      ctx.stroke();
+    };
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(...point(0, 0));
+    ctx.lineTo(...point(1, 0));
+    ctx.lineTo(...point(1, 1));
+    ctx.lineTo(...point(0, 1));
+    ctx.closePath();
+    ctx.stroke();
+    for (const v of [0.06, 0.352, 0.648, 0.94]) segment(0, v, 1, v);
+    for (const u of [0.075, 0.925]) segment(u, 0, u, 1);
+    segment(0.5, 0, 0.5, 0.352);
+    segment(0.5, 0.648, 0.5, 1);
+    // Net standing on the floor's middle line.
+    const [netLeft, netY] = point(0, 0.5),
+      [netRight] = point(1, 0.5),
+      netTop = netY - NET_HEIGHT;
+    ctx.fillStyle = "#29384d38";
+    ctx.fillRect(netLeft - 6, netTop, netRight - netLeft + 12, NET_HEIGHT);
+    ctx.strokeStyle = "#ffffffaa";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let nx = netLeft - 6; nx <= netRight + 6; nx += 7) {
+      ctx.moveTo(nx, netTop);
+      ctx.lineTo(nx, netY);
+    }
+    for (let ny = netTop; ny <= netY; ny += 6) {
+      ctx.moveTo(netLeft - 6, ny);
+      ctx.lineTo(netRight + 6, ny);
+    }
+    ctx.stroke();
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(netLeft - 6, netTop - 2, netRight - netLeft + 12, 4);
+    ctx.fillStyle = "#52616e";
+    ctx.fillRect(netLeft - 10, netTop - 4, 4, NET_HEIGHT + 4);
+    ctx.fillRect(netRight + 6, netTop - 4, 4, NET_HEIGHT + 4);
+    const centerX = x + width / 2;
+    ctx.fillStyle = "#fff";
+    ctx.beginPath();
+    ctx.roundRect(centerX - 28, netTop - 4, 56, 30, 15);
+    ctx.fill();
+    ctx.fillStyle = "#29384d";
+    ctx.font = font(20, true);
+    ctx.textAlign = "center";
+    ctx.fillText("VS", centerX, netTop + 18);
+    const chips = (lines: Line[], from: number, to: number) => {
+      const start = (from + to) / 2 - (lines.length * CHIP_STEP - 6) / 2;
+      lines.forEach((line, i) => {
+        const chipTop = start + i * CHIP_STEP,
+          chipWidth = lineWidth(line) + 28;
+        ctx.save();
+        ctx.shadowColor = "#29384d4d";
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetY = 5;
+        ctx.fillStyle = "#ffffffee";
+        ctx.beginPath();
+        ctx.roundRect(centerX - chipWidth / 2, chipTop, chipWidth, 38, 12);
+        ctx.fill();
+        ctx.restore();
+        drawLine(line, centerX, chipTop + 30);
+      });
+    };
+    chips(far, top + 6, netTop - 6);
+    chips(near, netY + 8, bottom - 6);
+  }
   ctx.fillStyle = "#fff8e9";
   ctx.fillRect(32, 244, 1016, 54);
   drawBadge(3, 56, 280);
@@ -238,7 +382,7 @@ export function renderShareCanvas(
   ctx.textAlign = "left";
   ctx.fillText("= เล่นติดกัน 3 รอบ รวมรอบนั้น · แสดงตั้งแต่ 2 รอบ", 126, 280);
   let y = 318;
-  for (const { round, cells, height } of rows) {
+  for (const { round, cells, teams, height } of rows) {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(32, y, 1016, height);
     ctx.fillStyle = "#183249";
@@ -263,22 +407,12 @@ export function renderShareCanvas(
         y + 39,
         width - 24,
       );
-      ctx.fillStyle = "#183249";
-      ctx.font = font(31);
-      lines.forEach((line, i) => {
-        let left = x + (width - lineWidth(line)) / 2;
-        for (const part of line) {
-          const baseline = y + 82 + i * 42;
-          if (part.streak) drawBadge(part.streak, left, baseline);
-          else {
-            ctx.fillStyle = "#183249";
-            ctx.font = font(31);
-            ctx.textAlign = "left";
-            ctx.fillText(part.text, left, baseline);
-          }
-          left += partWidth(part);
-        }
-      });
+      const pair = rest ? undefined : teams[index];
+      if (court3d && pair) drawCourt3d(x, width, y, height, index + 1, pair);
+      else
+        lines.forEach((line, i) =>
+          drawLine(line, x + width / 2, y + 82 + i * 42),
+        );
     });
     y += height + 14;
   }
@@ -313,6 +447,7 @@ export async function createShareImage(
   session: Session,
   block: ScheduleBlock,
   profiles: PlayerProfile[],
+  options: ShareImageOptions = {},
 ) {
   if (document.fonts) {
     // Canvas-only weights may not have been requested by the current UI yet.
@@ -321,7 +456,7 @@ export async function createShareImage(
       document.fonts.load('700 46px "Prompt"', "ตาราง BADMINTON"),
     ]);
   }
-  const canvas = renderShareCanvas(session, block, profiles);
+  const canvas = renderShareCanvas(session, block, profiles, options);
   const blob = await new Promise<Blob>((resolve, reject) => {
     // Some browsers defer the asynchronous encoder for detached canvases.
     // Keep exporting usable when its callback never arrives, including offline.

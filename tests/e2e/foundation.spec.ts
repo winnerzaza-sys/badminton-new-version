@@ -110,6 +110,5 @@ test("cached production shell and pairing work offline", async ({
   await expect(
     page.getByRole("heading", { name: "ตารางการเล่น", exact: true }),
   ).toBeVisible({ timeout: 30000 });
-  await expect(page.getByText("ออฟไลน์", { exact: true })).toBeVisible();
   await context.setOffline(false);
 });

@@ -1,17 +1,9 @@
 import { Icon } from "./Icon";
 
-export function ShuttleMark({ hero = false }: { hero?: boolean }) {
+export function ShuttleMark() {
   return (
-    <span
-      className={hero ? "shuttle-mark hero-shuttle" : "shuttle-mark"}
-      aria-hidden="true"
-    >
-      <Icon name="shuttlecock" size={hero ? 64 : 30} />
-      {hero && (
-        <span className="shuttle-spark">
-          <Icon name="sparkles" size={24} />
-        </span>
-      )}
+    <span className="shuttle-mark" aria-hidden="true">
+      <Icon name="shuttlecock" size={30} />
     </span>
   );
 }

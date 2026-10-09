@@ -5,6 +5,7 @@ import type {
   ScheduleBlock,
   PlayerProfile,
 } from "../../domain/models";
+import { loadCourtView } from "../schedule/CourtViewSwitch";
 import { createShareImage, downloadFile, shareImage } from "./service";
 export function SharePreview({
   session,
@@ -18,13 +19,18 @@ export function SharePreview({
   const [result, setResult] =
       useState<Awaited<ReturnType<typeof createShareImage>>>(),
     [url, setUrl] = useState(""),
-    [message, setMessage] = useState("");
+    [message, setMessage] = useState(""),
+    // Prototype: default to the 3D court image when the schedule uses 3D view.
+    [court3d, setCourt3d] = useState(() => {
+      const view = loadCourtView();
+      return view === "court" || view === "orbit";
+    });
   useEffect(() => {
     let cancelled = false,
       objectUrl = "";
     setResult(undefined);
     setUrl("");
-    createShareImage(session, block, profiles)
+    createShareImage(session, block, profiles, { court3d })
       .then((image) => {
         if (cancelled) return;
         objectUrl = URL.createObjectURL(image.blob);
@@ -38,7 +44,7 @@ export function SharePreview({
       cancelled = true;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-  }, [session, block, profiles]);
+  }, [session, block, profiles, court3d]);
   return (
     <section className="panel share-preview">
       <div className="panel-title">
@@ -46,6 +52,22 @@ export function SharePreview({
           <h2>ภาพสำหรับส่งให้เพื่อน</h2>
           <small>ภาพเดียวกันทุกขนาดหน้าจอ · รวมทุกรอบ</small>
         </div>
+      </div>
+      <div className="segmented share-style" aria-label="รูปแบบภาพ">
+        <button
+          aria-pressed={!court3d}
+          className={!court3d ? "selected" : ""}
+          onClick={() => setCourt3d(false)}
+        >
+          แบบตาราง
+        </button>
+        <button
+          aria-pressed={court3d}
+          className={court3d ? "selected" : ""}
+          onClick={() => setCourt3d(true)}
+        >
+          แบบสนาม 3D
+        </button>
       </div>
       <div className="toolbar">
         <button

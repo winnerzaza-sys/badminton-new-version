@@ -26,7 +26,6 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
     .toBe(true);
   if (info.project.name !== "mobile-webkit") {
     await context.setOffline(true);
-    await expect(page.getByText("ออฟไลน์", { exact: true })).toBeVisible();
   } else {
     // Playwright #42775: emulate offline before SW fulfilment fails internally.
     // The separate origin-stopped test verifies genuine cached WebKit navigation.
@@ -37,7 +36,7 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
     });
   }
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ปรับคู่", exact: true })
     .click();
   const original = await savedSession(page),
@@ -50,7 +49,7 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
   await page.reload();
   await page.getByRole("button", { name: "เปิดเซสชันเดิม →" }).click();
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ปรับคู่", exact: true })
     .click();
   await page.getByRole("button", { name: "ย้อนการแก้ไข", exact: true }).click();
@@ -139,10 +138,7 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
   await expect(
     page.getByText("ปรับสถานะและจัดรอบที่เหลือใหม่แล้ว", { exact: true }),
   ).toBeVisible();
-  await page
-    .locator(".block-toolbar")
-    .getByRole("button", { name: "สรุป", exact: true })
-    .click();
+  await page.locator('[data-nav="summary"]:visible').click();
   await expect(
     page.getByRole("heading", { name: "สรุปความสมดุล", exact: true }),
   ).toBeVisible();
@@ -154,8 +150,11 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  // Summary hides the session tabs; return to the schedule to reach sharing.
+  await expect(page.locator(".block-tabs")).toHaveCount(0);
+  await page.locator('[data-nav="schedule"]:visible').click();
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ส่งออก / แชร์", exact: true })
     .click();
   await expect(page.locator(".export-image")).toBeVisible();
@@ -170,14 +169,14 @@ test("adjust, dynamic roster, summary, PNG, history and resume on every form fac
   );
   await page.setViewportSize({ width: 700, height: 900 });
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ตารางเล่น", exact: true })
     .click();
   await expect(
     page.getByRole("heading", { name: "ตารางการเล่น", exact: true }),
   ).toBeVisible();
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ส่งออก / แชร์", exact: true })
     .click();
   await expect(page.locator(".export-image")).toBeVisible();
@@ -227,7 +226,7 @@ test("desktop dragging, locked pair control and full-block reset", async ({
     page.getByRole("heading", { name: "ตารางการเล่น", exact: true }),
   ).toBeVisible();
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ปรับคู่", exact: true })
     .click();
   const s = await savedSession(page),

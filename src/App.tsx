@@ -8,15 +8,6 @@ import { useBadminton } from "./hooks/useBadminton";
 import { Icon, type IconName } from "./components/Icon";
 import { ShuttleMark } from "./components/ShuttleMark";
 import { avatarStyle } from "./utils/avatar";
-const time = (value?: string) =>
-  value
-    ? new Intl.DateTimeFormat("th-TH", {
-        timeZone: "Asia/Bangkok",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      }).format(new Date(value))
-    : "";
 const date = (value: string) =>
   new Intl.DateTimeFormat("th-TH", {
     timeZone: "Asia/Bangkok",
@@ -47,7 +38,6 @@ export function App() {
     setPlayerName,
     gender,
     setGender,
-    online,
     active,
     unfinished,
     block,
@@ -112,43 +102,9 @@ export function App() {
           </div>
         </div>
         <nav aria-label="เมนูหลัก">{navigation}</nav>
-        <div className="sidebar-context">
-          <span className={`status-dot ${online ? "" : "offline"}`} />
-          ข้อมูลอยู่ในเครื่อง · {online ? "พร้อมใช้งาน" : "ออฟไลน์"}
-        </div>
       </aside>
       <div className="workspace">
         <header className="topbar">
-          <div className="brand mobile-brand">
-            <ShuttleMark />
-            <div>
-              <strong>แบดมินตัน</strong>
-              <small>Pairing & Schedule</small>
-            </div>
-          </div>
-          <div className="header-context">
-            <strong>
-              {date(
-                page === "home" ? config.date : (session?.date ?? config.date),
-              )}
-            </strong>
-            <small>
-              {session && block
-                ? `${time(block.startTime)} · ${block.durationMinutes} นาที`
-                : "จัดคู่ให้ลงตัว เล่นให้สนุก"}
-            </small>
-          </div>
-          <span className="connection">
-            <span className={`status-dot ${online ? "" : "offline"}`} />
-            {online ? "พร้อมใช้งาน" : "ออฟไลน์"}
-          </span>
-          <button
-            className="primary topbar-new"
-            type="button"
-            onClick={app.newSetup}
-          >
-            <Icon name="plus" size={18} /> สร้างตารางใหม่
-          </button>
           <button
             className="mobile-settings secondary"
             aria-label="ตั้งค่า"
@@ -187,7 +143,6 @@ export function App() {
                   <h1>สร้างตารางวันนี้</h1>
                   <p>เลือกเพื่อน ตั้งเวลา แล้วจัดครบทุกเกมในครั้งเดียว</p>
                 </div>
-                <ShuttleMark hero />
               </div>
               {unfinished && (
                 <article className="resume-card">

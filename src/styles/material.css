@@ -91,29 +91,6 @@
 .shuttle-mark > .icon {
   transform: rotate(-18deg);
 }
-.hero-shuttle {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  background: #faf9dc;
-  border-radius: 38% 60% 38% 60%;
-}
-.hero-shuttle::after {
-  content: "";
-  position: absolute;
-  left: -10px;
-  bottom: 5px;
-  width: 17px;
-  height: 17px;
-  background: #efbdcc;
-  border-radius: 50%;
-}
-.shuttle-spark {
-  position: absolute;
-  right: -12px;
-  top: -5px;
-  color: #6889b5;
-}
 .hero-actions {
   display: flex;
   align-items: center;
@@ -405,10 +382,6 @@
   .hero-actions {
     gap: 16px;
   }
-  .hero-shuttle {
-    width: 80px;
-    height: 80px;
-  }
   .hero-actions .secondary {
     max-width: 160px;
     white-space: normal;
@@ -463,29 +436,8 @@
     flex: 1;
     min-width: 0;
   }
-  .hero-shuttle {
-    width: 64px;
-    height: 64px;
-    margin-right: 5px;
-  }
-  .hero-shuttle > .icon {
-    width: 46px !important;
-    height: 46px !important;
-    font-size: 46px !important;
-  }
-  .shuttle-spark {
-    right: -8px;
-    top: -9px;
-  }
   .hero-actions {
     width: 100%;
-    justify-content: space-between;
-  }
-  .hero-actions .hero-shuttle {
-    order: 2;
-  }
-  .hero-actions .secondary {
-    max-width: calc(100% - 90px);
   }
   .court-grid {
     grid-template-columns: 1fr;
@@ -608,5 +560,101 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .floating-nav .bottom-nav .nav-item {
     font-size: 16px;
+  }
+}
+/* The top bar only carries the phone settings shortcut; tablet and desktop
+   reach settings from the navigation, so the empty bar is removed there. */
+@media (min-width: 768px) {
+  .topbar {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .topbar {
+    justify-content: flex-end;
+  }
+}
+/* Session page tabs: underline style so they read as page sections and stay
+   distinct from the pill-shaped round tabs and filled primary actions. */
+.block-toolbar {
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-bottom: 8px;
+}
+.rename-courts {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 8px;
+  background: transparent;
+  border: 0;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.block-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d2dff1;
+}
+.block-tabs button {
+  position: relative;
+  min-height: 46px;
+  padding: 0 16px;
+  background: transparent;
+  border: 0;
+  border-radius: 12px 12px 0 0;
+  color: #5c6c80;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: none;
+  cursor: pointer;
+}
+.block-tabs button:hover {
+  color: #3d6497;
+  background: #e8f0fc80;
+}
+/* Darker than --primary so the label passes WCAG AA on the page background. */
+.block-tabs button[aria-current="page"] {
+  color: #3d6497;
+}
+.block-tabs button[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: #3d6497;
+}
+.block-tabs button:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: -3px;
+}
+@media (max-width: 767px) {
+  .block-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+  .block-toolbar label {
+    margin-bottom: 0;
+  }
+  .rename-courts {
+    align-self: flex-start;
+    padding: 0 2px;
+  }
+  .block-tabs {
+    gap: 0;
+  }
+  .block-tabs button {
+    flex: 1;
+    padding: 0 6px;
+    font-size: 15px;
   }
 }

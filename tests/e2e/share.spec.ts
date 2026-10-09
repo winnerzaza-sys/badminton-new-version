@@ -11,7 +11,7 @@ test("file sharing, user cancellation and PNG download fallback", async ({
     page.getByRole("heading", { name: "ตารางการเล่น", exact: true }),
   ).toBeVisible();
   await page
-    .locator(".block-toolbar")
+    .locator(".block-tabs")
     .getByRole("button", { name: "ส่งออก / แชร์", exact: true })
     .click();
   await expect(

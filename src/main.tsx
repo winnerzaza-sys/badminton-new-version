@@ -4,6 +4,7 @@ import { App } from "./App";
 import "./styles/app.css";
 import "./styles/icons.css";
 import "./styles/material.css";
+import "./styles/court3d.css";
 import { App as AntApp, ConfigProvider } from "antd";
 import thTH from "antd/locale/th_TH";
 import "dayjs/locale/th";

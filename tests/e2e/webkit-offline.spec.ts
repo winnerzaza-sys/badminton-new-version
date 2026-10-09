@@ -67,7 +67,7 @@ test("WebKit launches cached app and generates/exports with its origin stopped",
       page.getByRole("heading", { name: "ตารางการเล่น", exact: true }),
     ).toBeVisible();
     await page
-      .locator(".block-toolbar")
+      .locator(".block-tabs")
       .getByRole("button", { name: "ส่งออก / แชร์", exact: true })
       .click();
     await expect(page.locator(".export-image")).toBeVisible();
